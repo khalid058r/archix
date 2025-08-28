@@ -13,22 +13,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Permission {
+public class Resource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String level;
-
-    @ManyToOne
-    private User grantedBy;
-
-    @ManyToOne
-    private User grantedTo;
-
-    @ManyToOne
-    private Resource appliesTo;
-
-    private LocalDateTime grantedAt;
+    private String name;
+    private String type;
+    private String description;
+    private LocalDateTime createdAt;
 }
