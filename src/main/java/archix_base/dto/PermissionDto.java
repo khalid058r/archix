@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,4 +14,9 @@ import lombok.Setter;
 public class PermissionDto {
     private Long id;
     private String name;
+    private Date grantedAt;
+    private Long grantedById;
+    private Long grantedToId;
+    private Long appliesToId;
+
 }
