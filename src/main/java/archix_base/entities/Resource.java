@@ -1,5 +1,6 @@
 package archix_base.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,9 +32,15 @@ public abstract class Resource {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy; // audit, not ownership
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    @JsonBackReference
+    private Namespace parent;
 
-    // Abstract method to force subclasses to implement their own path logic
-    public abstract String getPath();
+    public String getPath() {
+        if (parent == null) return "/" + name;
+        return parent.getPath() + "/" + name;
+    }
 
     @Override
     public boolean equals(Object o) {
