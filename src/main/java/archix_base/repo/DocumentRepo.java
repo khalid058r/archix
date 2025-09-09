@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface DocumentRepo extends JpaRepository<Document, Long> {
     // Exemple : retrouver les documents d'un namespace parent
     List<Document> findByParentId(Long parentId);
-
+    List<Document> findAllByCreatedById(Long createdById);
     Optional<Document> findByFileName(String fileName);
+    boolean existsByFileNameAndParentId(String fileName, Long parentId);
+    boolean existsByFileNameAndParentIdAndIdNot(String fileName, Long parentId, Long id);
 }

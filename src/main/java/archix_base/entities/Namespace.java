@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(
+        name = "namespace",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"name", "parent_id"})
+)
 @Getter
 @Setter
 @NoArgsConstructor

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -25,7 +26,7 @@ public class Permission {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
-    private Date grantedAt;
+    private LocalDateTime grantedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "granted_by", nullable = false)

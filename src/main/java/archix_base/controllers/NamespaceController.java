@@ -31,8 +31,11 @@ public class NamespaceController {
         return NamespaceMapper.toDto(ns);
     }
 
+
+
     @PostMapping
     public NamespaceDto create(@RequestBody NamespaceDto dto) {
+        dto.setId(null);
         Namespace ns = NamespaceMapper.toEntity(dto);
         // createdBy et parent sont gérés via dto.getCreatedById() et dto.getParentId()
         Namespace saved = namespaceService.create(ns, dto.getCreatedById(), dto.getParentId());
@@ -49,5 +52,23 @@ public class NamespaceController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         namespaceService.delete(id);
+    }
+    @GetMapping("/by-creator/{userId}")
+    public List<NamespaceDto> getByCreator(@PathVariable Long userId) {
+        return namespaceService.findAllByCreatedById(userId).stream()
+                .map(NamespaceMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    // GET /api/namespaces/search
+    @GetMapping("/search")
+    public List<NamespaceDto> searchNamespaces(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Long parentId,
+            @RequestParam(required = false) Long createdById
+    ) {
+        return namespaceService.advancedSearch(name, parentId, createdById).stream()
+                .map(NamespaceMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

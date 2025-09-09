@@ -14,7 +14,7 @@ import java.util.Date;
 public class PermissionDto {
     private Long id;
     private String name;
-    private Date grantedAt;
+    private LocalDateTime grantedAt;
     private Long grantedById;
     private Long grantedToId;
     private Long appliesToId;

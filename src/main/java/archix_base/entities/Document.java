@@ -2,6 +2,8 @@ package archix_base.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -22,5 +24,6 @@ public class Document extends Resource {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
+
 }

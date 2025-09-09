@@ -1,6 +1,8 @@
 package archix_base.dto;
 
 import lombok.Data;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -10,7 +12,7 @@ public class DocumentDto {
     private String fileName;
     private Long fileSize;
     private String mimeType;
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
     private Long createdById;
     private Long parentId;
 }

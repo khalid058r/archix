@@ -4,7 +4,7 @@ import archix_base.dto.ResourceDto;
 import archix_base.entities.Resource;
 import archix_base.entities.User;
 import archix_base.mapper.ResourceMapper;
-import archix_base.service.ResourceService;
+import archix_base.services.ResourceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,12 +21,15 @@ public class ResourceController {
         this.resourceService = resourceService;
     }
 
-    @PostMapping
-    public ResponseEntity<ResourceDto> create(@RequestBody ResourceDto dto) {
-        Resource resource = ResourceMapper.toEntity(dto);
-        Resource saved = resourceService.create(resource);
-        return ResponseEntity.ok(ResourceMapper.toDto(saved));
-    }
+//    @PostMapping
+//    public ResponseEntity<ResourceDto> create(@RequestBody ResourceDto dto) {
+//        if (dto == null || dto.getType() == null || dto.getName() == null) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//        Resource resource = ResourceMapper.toEntity(dto);
+//        Resource saved = resourceService.create(resource);
+//        return ResponseEntity.ok(ResourceMapper.toDto(saved));
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResourceDto> getById(@PathVariable Long id) {
@@ -38,18 +41,18 @@ public class ResourceController {
 
     @GetMapping
     public List<ResourceDto> getAll() {
-        return resourceService.getAll()
+        return resourceService.findAllResourcesConcrete()
                 .stream()
                 .map(ResourceMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResourceDto> update(@PathVariable Long id, @RequestBody ResourceDto dto) {
-        Resource resource = ResourceMapper.toEntity(dto);
-        Resource updated = resourceService.update(id, resource);
-        return ResponseEntity.ok(ResourceMapper.toDto(updated));
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ResourceDto> update(@PathVariable Long id, @RequestBody ResourceDto dto) {
+//        Resource resource = ResourceMapper.toEntity(dto);
+//        Resource updated = resourceService.update(id, resource);
+//        return ResponseEntity.ok(ResourceMapper.toDto(updated));
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

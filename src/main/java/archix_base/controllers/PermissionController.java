@@ -24,6 +24,8 @@ public class PermissionController {
 
     @PostMapping
     public ResponseEntity<PermissionDto> create(@RequestBody PermissionDto dto) {
+
+        dto.setId(null);
         Permission permission = PermissionMapper.toEntity(dto);
         Permission saved = permissionService.create(permission);
         return ResponseEntity.ok(PermissionMapper.toDto(saved));
