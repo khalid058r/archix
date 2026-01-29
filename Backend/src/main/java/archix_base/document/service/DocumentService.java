@@ -93,7 +93,7 @@ public class DocumentService {
         // mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âªme parent)
         if (documentRepository.existsByFileNameAndParentId(doc.getFileName(), parentId)) {
             throw new IllegalArgumentException(
-                    "Un document avec ce fileName existe dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©jÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  dans ce dossier.");
+                    "Un document avec ce fileName existe déjà dans ce dossier.");
         }
         doc.setCreatedAt(LocalDateTime.now());
         doc.setUpdatedAt(LocalDateTime.now());
@@ -121,7 +121,7 @@ public class DocumentService {
             }
         }
 
-        // Mise ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  jour champ par champ
+
         if (data.getName() != null)
             doc.setName(data.getName());
         if (data.getFileName() != null)
@@ -165,7 +165,6 @@ public class DocumentService {
         documentRepository.deleteById(id);
     }
 
-    // --- MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©thodes manquantes ---
 
     public List<Document> getDocumentsByNamespace(Long namespaceId) {
         return documentRepository.findByParentId(namespaceId);
@@ -192,7 +191,6 @@ public class DocumentService {
             Long createdById) {
         return documentRepository.searchList(fileName, name, mimeType, parentId, createdById);
     }
-    // Ajouter ces mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©thodes dans
     // DocumentService.java
 
     public Page<Document> getAll(Pageable pageable, archix_base.document.entity.DocumentStatus status) {
