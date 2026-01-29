@@ -1,0 +1,236 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.example:archix-base >-----------------------
+[INFO] Building archix-base 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ archix-base ---
+[INFO] Deleting C:\Users\khalid\Desktop\archix\Backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ archix-base ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ archix-base ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 72 source files with javac [debug parameters release 21] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[11,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[12,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[13,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[14,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[15,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[16,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[17,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[18,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[19,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[20,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[21,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[22,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/BadRequestException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/BadRequestException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityInUseException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityInUseException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityNotFoundException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityNotFoundException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[11,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[12,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[13,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[14,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[15,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[16,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/PermissionNotFoundException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/PermissionNotFoundException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/ResourceNotFoundException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/ResourceNotFoundException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/UsernameAlreadyTakenException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/UsernameAlreadyTakenException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[11,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[12,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[13,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[14,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[15,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[16,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[17,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[18,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[19,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[20,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[11,1] class, interface, enum, or record expected
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.486 s
+[INFO] Finished at: 2026-01-27T04:59:59+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile (default-compile) on project archix-base: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/ArchixBaseApplication.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[11,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[12,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[13,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[14,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[15,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[16,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[17,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[18,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[19,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[20,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[21,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/config/SecurityConfig.java:[22,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/BadRequestException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/BadRequestException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityInUseException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityInUseException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityNotFoundException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/EntityNotFoundException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[11,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[12,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[13,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[14,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[15,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[16,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/PermissionNotFoundException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/PermissionNotFoundException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/ResourceNotFoundException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/ResourceNotFoundException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/UsernameAlreadyTakenException.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/UsernameAlreadyTakenException.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ApiResponse.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/ErrorResponse.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/response/PageResponse.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[11,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[12,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[13,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[14,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[15,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[16,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[17,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[18,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[19,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[20,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[1,1] illegal character: '\ufeff'
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[1,10] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[3,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[4,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[5,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[6,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[7,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[8,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[9,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[10,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/ResourceController.java:[11,1] class, interface, enum, or record expected
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

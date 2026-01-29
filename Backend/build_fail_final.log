@@ -1,0 +1,45 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.example:archix-base >-----------------------
+[INFO] Building archix-base 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ archix-base ---
+[INFO] Deleting C:\Users\khalid\Desktop\archix\Backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ archix-base ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ archix-base ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 73 source files with javac [debug parameters release 21] to target\classes
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/AuthResponse.java:[25,20] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[4,19] package archix_base.exceptions does not exist
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  12.055 s
+[INFO] Finished at: 2026-01-27T05:12:27+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile (default-compile) on project archix-base: Compilation failure
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[4,19] package archix_base.exceptions does not exist
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

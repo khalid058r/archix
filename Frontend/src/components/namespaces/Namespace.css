@@ -1,0 +1,137 @@
+/* ===== NAMESPACE LIST ===== */
+.namespace-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.namespace-list.loading {
+    opacity: 0.7;
+}
+
+/* ===== NAMESPACE CARD ===== */
+.namespace-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: all var(--transition-fast) var(--easing-default);
+}
+
+.namespace-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.namespace-card-inner {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    cursor: pointer;
+}
+
+.namespace-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.namespace-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.namespace-name {
+    font-size: var(--text-md);
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.namespace-meta {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+}
+
+/* ===== MENU ===== */
+.namespace-menu-wrapper {
+    position: relative;
+    margin-right: var(--space-2);
+}
+
+.namespace-menu-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    opacity: 0;
+    transition: opacity var(--transition-fast) var(--easing-default);
+}
+
+.namespace-card:hover .namespace-menu-btn,
+.namespace-menu-btn:focus {
+    opacity: 1;
+}
+
+.namespace-menu-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.namespace-context-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 140px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+    padding: var(--space-1);
+}
+
+.namespace-context-menu button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+}
+
+.namespace-context-menu button:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.namespace-context-menu button.text-danger:hover {
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+/* ===== SKELETON ===== */
+.namespace-skeleton {
+    height: 64px;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    animation: pulse 2s infinite;
+}

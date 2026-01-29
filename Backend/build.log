@@ -1,0 +1,216 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.example:archix-base >-----------------------
+[INFO] Building archix-base 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ archix-base ---
+[INFO] Deleting C:\Users\khalid\Desktop\archix\Backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ archix-base ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ archix-base ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 72 source files with javac [debug parameters release 21] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[88,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[90,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[92,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[93,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[94,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[95,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[96,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[97,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[98,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[99,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[100,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[101,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[102,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[103,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[104,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[105,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[106,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[108,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[109,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[22,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[24,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[26,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[27,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[28,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[49,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[51,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[53,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[54,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[55,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[56,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[57,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[58,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[59,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[60,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[61,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[62,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[63,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[31,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[33,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[35,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[36,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[37,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[35,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[37,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[38,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[40,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[41,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[42,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[43,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[104,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[106,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[107,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[108,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[110,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[111,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[112,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[113,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[114,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[115,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[116,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[117,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[118,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[119,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[120,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[121,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[122,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[123,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[124,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[125,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[127,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[128,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[129,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[25,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[27,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[28,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[30,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[31,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[32,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[19,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[21,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[22,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[24,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[25,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[26,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[27,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[29,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[31,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[33,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[34,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[35,1] class, interface, enum, or record expected
+[INFO] 90 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.369 s
+[INFO] Finished at: 2026-01-27T04:57:52+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile (default-compile) on project archix-base: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[88,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[90,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[92,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[93,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[94,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[95,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[96,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[97,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[98,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[99,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[100,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[101,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[102,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[103,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[104,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[105,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[106,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[108,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[109,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[22,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[24,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[26,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[27,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/dto/DocumentDto.java:[28,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[49,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[51,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[53,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[54,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[55,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[56,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[57,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[58,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[59,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[60,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[61,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[62,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[63,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[31,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[33,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[35,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[36,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/RegisterDto.java:[37,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[35,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[37,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[38,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[40,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[41,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[42,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/UserDto.java:[43,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[104,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[106,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[107,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[108,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[110,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[111,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[112,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[113,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[114,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[115,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[116,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[117,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[118,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[119,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[120,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[121,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[122,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[123,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[124,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[125,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[127,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[128,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[129,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[25,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[27,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[28,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[30,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[31,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/DepartmentDto.java:[32,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[19,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[21,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[22,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[24,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[25,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[26,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/NamespaceDto.java:[27,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[29,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[31,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[33,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[34,1] class, interface, enum, or record expected
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/dto/OrganizationDto.java:[35,1] class, interface, enum, or record expected
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

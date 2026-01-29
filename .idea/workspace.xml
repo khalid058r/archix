@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c168a4c6-dc96-4d52-a470-35892cb32beb" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/ArchixBaseApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/DepartmentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/DocumentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/NamespaceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/OrganizationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/PermissionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/ResourceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/controllers/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/AuthenticationResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/ChangeOrganizationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/ChangePasswordDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/ChangeUserDepartmentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/ChangeUserPermissionsDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/CreateDepartmentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/DepartmentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/DocumentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/ErrorResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/LoginDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/NamespaceDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/OrganizationDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/PermissionDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/RegisterDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/ResourceDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/dto/UserDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/entities/Department.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/entities/Document.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/entities/Namespace.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/entities/Organization.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/entities/Permission.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/entities/Resource.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/entities/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/exceptionhandler/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/exceptions/BadRequestException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/exceptions/EntityInUseException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/exceptions/EntityNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/exceptions/PermissionNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/exceptions/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/exceptions/UsernameAlreadyTakenException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/filter/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/mapper/DepartmentMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/mapper/DocumentMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/mapper/NamespaceMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/mapper/OrganizationMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/mapper/PermissionMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/mapper/ResourceMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/mapper/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/repo/DepartmentRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/repo/DocumentRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/repo/NamespaceRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/repo/OrganizationRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/repo/PermissionRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/repo/ResourceRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/repo/UserRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/DepartmentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/DocumentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/NamespaceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/OrganizationService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/PermissionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/ResourceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/UserDetailsServiceImp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/archix_base/services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/archix_base/ArchixBaseApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;khalidabouelfaraj371&quot;,
+      &quot;fullname&quot;: &quot;Khalid Abouelfaraj&quot;
+    }
+  }
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;https://gitlab.com/dds-group/archix-base-backend.git&quot;,
+    &quot;second&quot;: &quot;3bf53b1e-a08a-4d4b-936a-81d6307d9a8f&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="31vuYsbW22a4Hbc7G2qGhEc7cIf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ArchixBaseApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/khalid/Desktop/archix/Backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "advanced.settings",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="archix_base.services" />
+      <recent name="archix_base.entities" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\khalid\Desktop\archix\Backend" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="archix-base-backend2" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="archix-base-backend2" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="archix-base-backend2" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="archix-base-backend2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="archix-base-backend2" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="ArchixBaseApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="archix-base" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="archix_base.ArchixBaseApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c168a4c6-dc96-4d52-a470-35892cb32beb" name="Changes" comment="" />
+      <created>1756416918330</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756416918330</updated>
+      <workItem from="1756416919737" duration="9105000" />
+      <workItem from="1756482995036" duration="4912000" />
+      <workItem from="1756489207820" duration="4919000" />
+      <workItem from="1756495886224" duration="14615000" />
+      <workItem from="1756680936668" duration="5000000" />
+      <workItem from="1756904716589" duration="13057000" />
+      <workItem from="1756924359808" duration="10932000" />
+      <workItem from="1756994680467" duration="777000" />
+      <workItem from="1756998838355" duration="12043000" />
+      <workItem from="1757020204009" duration="5015000" />
+      <workItem from="1757112414753" duration="1035000" />
+      <workItem from="1764002434539" duration="724000" />
+      <workItem from="1764028893398" duration="180000" />
+      <workItem from="1768756128270" duration="1758000" />
+      <workItem from="1768955687386" duration="608000" />
+      <workItem from="1769295031575" duration="604000" />
+      <workItem from="1769306105440" duration="3522000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

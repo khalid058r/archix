@@ -1,0 +1,92 @@
+/* ===== USERS PAGE ===== */
+.users-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+/* ===== USERS TABLE ===== */
+.users-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.users-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-tertiary);
+    white-space: nowrap;
+}
+
+.users-table td {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-md);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.users-table tr:last-child td {
+    border-bottom: none;
+}
+
+.users-table tr:hover td {
+    background-color: var(--bg-tertiary);
+}
+
+/* ===== USER CELL ===== */
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-red);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+}
+
+.user-email {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+    .users-table th:nth-child(3),
+    .users-table td:nth-child(3),
+    .users-table th:nth-child(4),
+    .users-table td:nth-child(4) {
+        display: none;
+    }
+}

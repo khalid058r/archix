@@ -1,0 +1,204 @@
+/* ===== HEADER ===== */
+.header {
+    height: var(--header-height);
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-6);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+/* ===== MENU BUTTON ===== */
+.header-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: var(--space-2);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+}
+
+.header-menu-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .header-menu-btn {
+        display: flex;
+    }
+}
+
+/* ===== SEARCH ===== */
+.header-search {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-4);
+    min-width: 300px;
+    max-width: 400px;
+    flex: 1;
+    margin: 0 var(--space-4);
+}
+
+.header-search-icon {
+    color: var(--text-tertiary);
+    flex-shrink: 0;
+}
+
+.header-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: var(--text-md);
+    width: 100%;
+    margin-left: var(--space-2);
+}
+
+.header-search input::placeholder {
+    color: var(--text-tertiary);
+}
+
+/* ===== ACTIONS ===== */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.header-action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: var(--space-2);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.header-action-btn:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* ===== USER ===== */
+.header-user {
+    position: relative;
+}
+
+.header-user-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+}
+
+.header-user-btn:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.header-user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-red);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+}
+
+.header-user-avatar.lg {
+    width: 48px;
+    height: 48px;
+    font-size: var(--text-md);
+}
+
+.header-user-name {
+    font-weight: var(--font-medium);
+}
+
+.header-user-email {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+}
+
+/* ===== USER MENU ===== */
+.header-user-menu {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    width: 280px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.header-user-menu-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+}
+
+.header-user-menu-divider {
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.header-user-menu button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: var(--text-md);
+    cursor: pointer;
+    text-align: left;
+}
+
+.header-user-menu button:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.header-user-menu button.danger:hover {
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .header-search {
+        min-width: 0;
+        max-width: none;
+    }
+
+    .header-user-name {
+        display: none;
+    }
+}

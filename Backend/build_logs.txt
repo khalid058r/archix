@@ -1,0 +1,170 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.example:archix-base >-----------------------
+[INFO] Building archix-base 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ archix-base ---
+[INFO] Deleting C:\Users\khalid\Desktop\archix\Backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ archix-base ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ archix-base ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 74 source files with javac [debug parameters release 21] to target\classes
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/AuthResponse.java:[23,20] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[4,19] package archix_base.exceptions does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[3,28] package archix_base.entities does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[5,28] package archix_base.services does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[6,28] package archix_base.services does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[33,19] cannot find symbol
+  symbol:   class JwtService
+  location: class archix_base.filter.JwtAuthenticationFilter
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[34,19] cannot find symbol
+  symbol:   class UserDetailsServiceImp
+  location: class archix_base.filter.JwtAuthenticationFilter
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[29,1] cannot find symbol
+  symbol:   class JwtService
+  location: class archix_base.filter.JwtAuthenticationFilter
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[80,70] cannot find symbol
+  symbol:   class RegisterDto
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[80,27] cannot find symbol
+  symbol:   class AuthResponse
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[89,67] cannot find symbol
+  symbol:   class LoginDto
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[89,27] cannot find symbol
+  symbol:   class AuthResponse
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[111,26] cannot find symbol
+  symbol:   class TokenVerificationRequest
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[110,27] cannot find symbol
+  symbol:   class TokenVerificationResponse
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[123,26] cannot find symbol
+  symbol:   class RefreshTokenRequest
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[122,27] cannot find symbol
+  symbol:   class AuthResponse
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[133,27] cannot find symbol
+  symbol:   class MessageResponse
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[146,33] cannot find symbol
+  symbol:   class ChangePasswordRequest
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[144,27] cannot find symbol
+  symbol:   class MessageResponse
+  location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[144,34] cannot find symbol
+  symbol:   class RegisterDto
+  location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[144,12] cannot find symbol
+  symbol:   class AuthResponse
+  location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[204,31] cannot find symbol
+  symbol:   class LoginDto
+  location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[204,12] cannot find symbol
+  symbol:   class AuthResponse
+  location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[232,12] cannot find symbol
+  symbol:   class AuthResponse
+  location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[261,45] cannot find symbol
+  symbol:   class ChangePasswordRequest
+  location: class archix_base.identity.service.AuthService
+[INFO] 24 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11.668 s
+[INFO] Finished at: 2026-01-27T05:09:24+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile (default-compile) on project archix-base: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/common/exception/GlobalExceptionHandler.java:[4,19] package archix_base.exceptions does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[3,28] package archix_base.entities does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[5,28] package archix_base.services does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[6,28] package archix_base.services does not exist
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[33,19] cannot find symbol
+[ERROR]   symbol:   class JwtService
+[ERROR]   location: class archix_base.filter.JwtAuthenticationFilter
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[34,19] cannot find symbol
+[ERROR]   symbol:   class UserDetailsServiceImp
+[ERROR]   location: class archix_base.filter.JwtAuthenticationFilter
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/JwtAuthenticationFilter.java:[29,1] cannot find symbol
+[ERROR]   symbol:   class JwtService
+[ERROR]   location: class archix_base.filter.JwtAuthenticationFilter
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[80,70] cannot find symbol
+[ERROR]   symbol:   class RegisterDto
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[80,27] cannot find symbol
+[ERROR]   symbol:   class AuthResponse
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[89,67] cannot find symbol
+[ERROR]   symbol:   class LoginDto
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[89,27] cannot find symbol
+[ERROR]   symbol:   class AuthResponse
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[111,26] cannot find symbol
+[ERROR]   symbol:   class TokenVerificationRequest
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[110,27] cannot find symbol
+[ERROR]   symbol:   class TokenVerificationResponse
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[123,26] cannot find symbol
+[ERROR]   symbol:   class RefreshTokenRequest
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[122,27] cannot find symbol
+[ERROR]   symbol:   class AuthResponse
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[133,27] cannot find symbol
+[ERROR]   symbol:   class MessageResponse
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[146,33] cannot find symbol
+[ERROR]   symbol:   class ChangePasswordRequest
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/controller/AuthController.java:[144,27] cannot find symbol
+[ERROR]   symbol:   class MessageResponse
+[ERROR]   location: class archix_base.identity.controller.AuthController
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[144,34] cannot find symbol
+[ERROR]   symbol:   class RegisterDto
+[ERROR]   location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[144,12] cannot find symbol
+[ERROR]   symbol:   class AuthResponse
+[ERROR]   location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[204,31] cannot find symbol
+[ERROR]   symbol:   class LoginDto
+[ERROR]   location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[204,12] cannot find symbol
+[ERROR]   symbol:   class AuthResponse
+[ERROR]   location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[232,12] cannot find symbol
+[ERROR]   symbol:   class AuthResponse
+[ERROR]   location: class archix_base.identity.service.AuthService
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/AuthService.java:[261,45] cannot find symbol
+[ERROR]   symbol:   class ChangePasswordRequest
+[ERROR]   location: class archix_base.identity.service.AuthService
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

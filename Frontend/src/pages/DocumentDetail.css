@@ -1,0 +1,66 @@
+/* ===== DOCUMENT DETAIL PAGE ===== */
+.document-detail-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+/* ===== GRID LAYOUT ===== */
+.document-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-6);
+    min-height: 600px;
+}
+
+/* ===== MAIN CONTENT ===== */
+.document-main {
+    min-width: 0;
+}
+
+/* ===== SIDEBAR ===== */
+.document-sidebar {
+    min-width: 0;
+}
+
+/* ===== METADATA LIST ===== */
+.metadata-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.metadata-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.metadata-label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metadata-value {
+    font-size: var(--text-md);
+    color: var(--text-primary);
+    word-break: break-word;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+    .document-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .document-sidebar {
+        order: 2;
+    }
+
+    .document-main {
+        order: 1;
+    }
+}

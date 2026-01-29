@@ -1,0 +1,118 @@
+/* ===== TOAST CONTAINER ===== */
+.toast-container {
+    position: fixed;
+    top: var(--space-6);
+    right: var(--space-6);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 400px;
+    width: 100%;
+    pointer-events: none;
+}
+
+/* ===== TOAST ===== */
+.toast {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    pointer-events: auto;
+    animation: toastSlideIn var(--transition-normal) var(--easing-default);
+}
+
+.toast-exit {
+    animation: toastSlideOut 200ms var(--easing-default) forwards;
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toastSlideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+/* ===== TOAST ICON ===== */
+.toast-icon {
+    flex-shrink: 0;
+}
+
+/* ===== TOAST MESSAGE ===== */
+.toast-message {
+    flex: 1;
+    font-size: var(--text-md);
+    font-weight: var(--font-medium);
+    line-height: var(--leading-snug);
+}
+
+/* ===== TOAST CLOSE ===== */
+.toast-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast) var(--easing-default);
+}
+
+.toast-close:hover {
+    opacity: 1;
+}
+
+/* ===== TOAST VARIANTS ===== */
+.toast-success {
+    background-color: var(--color-success);
+    color: var(--color-white);
+}
+
+.toast-error {
+    background-color: var(--color-error);
+    color: var(--color-white);
+}
+
+.toast-warning {
+    background-color: var(--color-warning);
+    color: var(--color-black);
+}
+
+.toast-info {
+    background-color: var(--color-info);
+    color: var(--color-white);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 576px) {
+    .toast-container {
+        top: auto;
+        bottom: var(--space-6);
+        right: var(--space-4);
+        left: var(--space-4);
+        max-width: none;
+    }
+}
