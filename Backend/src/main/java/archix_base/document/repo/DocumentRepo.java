@@ -63,4 +63,7 @@ public interface DocumentRepo extends JpaRepository<Document, Long> {
                         @Param("createdById") Long createdById);
 
         Page<Document> findAllByStatus(archix_base.document.entity.DocumentStatus status, Pageable pageable);
+
+        @Query("SELECT d.status, COUNT(d) FROM Document d GROUP BY d.status")
+        List<Object[]> countByStatus();
 }

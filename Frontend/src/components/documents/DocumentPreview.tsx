@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileText, Image, FileCode, File, Download } from 'lucide-react';
 import { Button } from '../ui';
+import { documentService } from '../../services';
 import type { Document } from '../../types';
 import './Documents.css';
 
@@ -30,7 +31,7 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
             setLoading(true);
             try {
                 const token = localStorage.getItem('token'); // Adjust key if needed (e.g. 'auth_token')
-                const response = await fetch(`http://localhost:8081/api/documents/${document.id}/content`, {
+                const response = await fetch(documentService.getPreviewUrl(document.id), {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -79,7 +80,7 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
                 </div>
                 <Button
                     variant="primary"
-                    onClick={() => window.open(`http://localhost:8081/api/documents/${document.id}/content`, '_blank')}
+                    onClick={() => window.open(documentService.getDownloadUrl(document.id), '_blank')}
                 >
                     <Download size={16} className="mr-2" /> Télécharger / Ouvrir
                 </Button>

@@ -106,12 +106,68 @@ import org.springframework.web.bind.annotation.*;
 //    }
 //}
 
+import archix_base.document.dto.DocumentStatsDTO;
+
+// ... existing imports ...
+
+import archix_base.document.dto.DocumentStatsDTO;
+
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/documents")
 @RequiredArgsConstructor
 public class DocumentController {
 
         private final DocumentService documentService;
+
+        // --- Workflow Endpoints ---
+
+        @PostMapping("/{id}/submit")
+        public ResponseEntity<DocumentDto> submitForReview(@PathVariable Long id,
+                        @AuthenticationPrincipal User currentUser) {
+                return ResponseEntity.ok(DocumentMapper.toDto(documentService.submitForReview(id, currentUser)));
+        }
+
+        @PostMapping("/{id}/start-review")
+        public ResponseEntity<DocumentDto> startReview(@PathVariable Long id,
+                        @AuthenticationPrincipal User currentUser) {
+                return ResponseEntity.ok(DocumentMapper.toDto(documentService.startReview(id, currentUser)));
+        }
+
+        @PostMapping("/{id}/approve")
+        public ResponseEntity<DocumentDto> approve(@PathVariable Long id, @AuthenticationPrincipal User currentUser) {
+                return ResponseEntity.ok(DocumentMapper.toDto(documentService.approve(id, currentUser)));
+        }
+
+        @PostMapping("/{id}/reject")
+        public ResponseEntity<DocumentDto> reject(@PathVariable Long id, @RequestBody Map<String, String> payload,
+                        @AuthenticationPrincipal User currentUser) {
+                String reason = payload.get("reason");
+                return ResponseEntity.ok(DocumentMapper.toDto(documentService.reject(id, reason, currentUser)));
+        }
+
+        @PostMapping("/{id}/publish")
+        public ResponseEntity<DocumentDto> publish(@PathVariable Long id, @AuthenticationPrincipal User currentUser) {
+                return ResponseEntity.ok(DocumentMapper.toDto(documentService.publish(id, currentUser)));
+        }
+
+        @PostMapping("/{id}/archive")
+        public ResponseEntity<DocumentDto> archive(@PathVariable Long id, @AuthenticationPrincipal User currentUser) {
+                return ResponseEntity.ok(DocumentMapper.toDto(documentService.archive(id, currentUser)));
+        }
+
+        @GetMapping("/{id}/versions")
+        public ResponseEntity<List<archix_base.document.dto.DocumentVersionDto>> getVersions(@PathVariable Long id) {
+                return ResponseEntity.ok(documentService.getVersions(id).stream()
+                                .map(DocumentMapper::toVersionDto)
+                                .collect(Collectors.toList()));
+        }
+
+        @GetMapping("/stats")
+        public ResponseEntity<DocumentStatsDTO> getStats() {
+                return ResponseEntity.ok(documentService.getStats());
+        }
 
         @GetMapping
         public ResponseEntity<PageResponse<DocumentDto>> getAll(
@@ -138,13 +194,16 @@ public class DocumentController {
         }
 
         @GetMapping("/{id}/content")
-        public ResponseEntity<byte[]> getContent(@PathVariable Long id) {
+        public ResponseEntity<byte[]> getContent(@PathVariable Long id,
+                        @RequestParam(defaultValue = "false") boolean download) {
                 Document doc = documentService.getById(id);
                 byte[] content = documentService.getDocumentContent(id);
 
+                String disposition = download ? "attachment" : "inline";
+
                 return ResponseEntity.ok()
                                 .header(org.springframework.http.HttpHeaders.CONTENT_DISPOSITION,
-                                                "inline; filename=\"" + doc.getFileName() + "\"")
+                                                disposition + "; filename=\"" + doc.getFileName() + "\"")
                                 .contentType(org.springframework.http.MediaType.parseMediaType(doc.getMimeType()))
                                 .body(content);
         }
@@ -206,9 +265,10 @@ public class DocumentController {
         @PutMapping("/{id}")
         public ResponseEntity<DocumentDto> update(
                         @PathVariable Long id,
-                        @Valid @RequestBody DocumentDto dto) {
+                        @Valid @RequestBody DocumentDto dto,
+                        @AuthenticationPrincipal User currentUser) {
                 Document doc = DocumentMapper.toEntity(dto);
-                Document updated = documentService.update(id, doc, dto.getParentId());
+                Document updated = documentService.update(id, doc, dto.getParentId(), currentUser);
                 return ResponseEntity.ok(DocumentMapper.toDto(updated));
         }
 
@@ -217,8 +277,8 @@ public class DocumentController {
          * Supprimer un document
          */
         @DeleteMapping("/{id}")
-        public ResponseEntity<Void> delete(@PathVariable Long id) {
-                documentService.delete(id);
+        public ResponseEntity<Void> delete(@PathVariable Long id, @AuthenticationPrincipal User currentUser) {
+                documentService.delete(id, currentUser);
                 return ResponseEntity.noContent().build();
         }
 

@@ -108,6 +108,20 @@ export interface Document {
   createdByName: string;
   parentId?: number;
   parentName?: string;
+  namespace?: Namespace;
+  status: DocumentStatus;
+  currentVersion?: number; // Added for versioning support
+  version?: number; // Alias often used
+}
+
+export interface DocumentVersion {
+  id: number;
+  versionNumber: number;
+  fileName: string;
+  mimeType: string;
+  fileSize: number;
+  archivedAt: string;
+  archivedBy: string;
 }
 
 export interface CreateDocumentRequest {
@@ -227,3 +241,23 @@ export const FILE_TYPE_ICONS: Record<string, string> = {
   'application/zip': 'file-archive',
   default: 'file',
 };
+
+// ===== STATS TYPES =====
+export interface DocumentStats {
+  totalDocuments: number;
+  drafts: number;
+  inReview: number;
+  published: number;
+}
+
+// ===== AUDIT TYPES =====
+export interface AuditLog {
+  id: number;
+  action: string;
+  entityName: string;
+  entityId: string;
+  userId: number;
+  username: string;
+  details: string;
+  timestamp: string;
+}

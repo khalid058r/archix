@@ -13,14 +13,20 @@ import {
     Shield,
     FileSearch,
     Globe,
-    Server
+    Server,
+    X
 } from 'lucide-react';
 import { cn } from '../../../utils/cn';
 import { useAppDispatch } from '../../../store/hooks';
 import { logout } from '../../../store/slices/authSlice';
 import { usePermissions } from '../../../hooks/usePermissions';
 
-export const Sidebar = () => {
+interface SidebarProps {
+    isOpen?: boolean;
+    onClose?: () => void;
+}
+
+export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     const dispatch = useAppDispatch();
     const { isSuperAdmin, isAdmin, isManager, isUser, isGuest } = usePermissions();
 
@@ -64,43 +70,62 @@ export const Sidebar = () => {
     ].filter(Boolean);
 
     return (
-        <div className="fixed left-0 top-0 h-full w-[260px] bg-black text-white flex flex-col">
-            <div className="p-6 border-b border-white/10">
-                <h1 className="text-xl font-bold tracking-wider">ARCHIX-BASE</h1>
-            </div>
-
-            <nav className="flex-1 overflow-y-auto py-4 px-2 space-y-1">
-                {menuItems.map((item: any, index: number) =>
-                    item.section ? (
-                        <div key={`section-${index}`} className="mt-6 px-4 text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
-                            {item.section}
-                        </div>
-                    ) : (
-                        <NavLink
-                            key={item.to}
-                            to={item.to}
-                            className={({ isActive }) => cn(
-                                "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors",
-                                "text-white/70 hover:bg-white/10 hover:text-white",
-                                isActive && "bg-primary text-white"
-                            )}
-                        >
-                            <item.icon size={20} />
-                            {item.label}
-                        </NavLink>
-                    )
+        <>
+            {/* Mobile Overlay */}
+            <div
+                className={cn(
+                    "fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300",
+                    isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
                 )}
-            </nav>
+                onClick={onClose}
+            />
 
-            <div className="p-4 border-t border-white/10">
-                <button
-                    onClick={handleLogout}
-                    className="flex items-center gap-3 px-4 py-3 w-full rounded-md text-sm font-medium text-white/70 hover:bg-white/10 hover:text-white transition-colors"
-                >
-                    <LogOut size={20} />
-                    Déconnexion
-                </button>
+            {/* Sidebar Content */}
+            <div className={cn(
+                "fixed left-0 top-0 h-full w-[260px] bg-black text-white flex flex-col z-50 transition-transform duration-300 ease-in-out md:translate-x-0",
+                isOpen ? "translate-x-0" : "-translate-x-full"
+            )}>
+                <div className="p-6 border-b border-white/10 flex justify-between items-center">
+                    <h1 className="text-xl font-bold tracking-wider">ARCHIX-BASE</h1>
+                    <button onClick={onClose} className="md:hidden text-white/70 hover:text-white">
+                        <X size={24} />
+                    </button>
+                </div>
+
+                <nav className="flex-1 overflow-y-auto py-4 px-2 space-y-1">
+                    {menuItems.map((item: any, index: number) =>
+                        item.section ? (
+                            <div key={`section-${index}`} className="mt-6 px-4 text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
+                                {item.section}
+                            </div>
+                        ) : (
+                            <NavLink
+                                key={item.to}
+                                to={item.to}
+                                onClick={() => window.innerWidth < 768 && onClose?.()}
+                                className={({ isActive }) => cn(
+                                    "flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-colors",
+                                    "text-white/70 hover:bg-white/10 hover:text-white",
+                                    isActive && "bg-primary text-white"
+                                )}
+                            >
+                                <item.icon size={20} />
+                                {item.label}
+                            </NavLink>
+                        )
+                    )}
+                </nav>
+
+                <div className="p-4 border-t border-white/10">
+                    <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 px-4 py-3 w-full rounded-md text-sm font-medium text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+                    >
+                        <LogOut size={20} />
+                        Déconnexion
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
     );
 };

@@ -12,6 +12,7 @@ import DocumentDetailPage from '../pages/documents/DocumentDetailPage';
 
 import NamespacesPage from '../pages/namespaces/NamespacesPage';
 import SearchPage from '../pages/search/SearchPage';
+import AuditLogsPage from '../pages/admin/AuditLogsPage';
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
             // Admin Routes
             { path: 'admin/users', element: <div>Gestion Utilisateurs (Bientôt)</div> },
             { path: 'admin/departments', element: <div>Gestion Départements (Bientôt)</div> },
+            { path: 'admin/audit', element: <AuditLogsPage /> },
         ],
     },
     {

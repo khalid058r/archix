@@ -3,7 +3,8 @@ import type {
     Document,
     CreateDocumentRequest,
     DocumentSearchParams,
-    PageResponse
+    PageResponse,
+    DocumentStats
 } from '../types';
 
 export const documentService = {
@@ -104,6 +105,52 @@ export const documentService = {
     getPreviewUrl(id: number): string {
         const token = localStorage.getItem('token');
         return `http://localhost:8081/api/documents/${id}/content?token=${token}`;
+    },
+
+    // Get document statistics
+    async getStats(): Promise<DocumentStats> {
+        const response = await api.get<DocumentStats>('/documents/stats');
+        return response.data;
+    },
+
+    // Workflow
+    async submit(id: number): Promise<Document> {
+        const response = await api.post<Document>(`/documents/${id}/submit`);
+        return response.data;
+    },
+
+    async startReview(id: number): Promise<Document> {
+        const response = await api.post<Document>(`/documents/${id}/start-review`);
+        return response.data;
+    },
+
+    async approve(id: number): Promise<Document> {
+        const response = await api.post<Document>(`/documents/${id}/approve`);
+        return response.data;
+    },
+
+    async reject(id: number, reason: string): Promise<Document> {
+        const response = await api.post<Document>(`/documents/${id}/reject`, { reason });
+        return response.data;
+    },
+
+    async publish(id: number): Promise<Document> {
+        const response = await api.post<Document>(`/documents/${id}/publish`);
+        return response.data;
+    },
+
+    async archive(id: number): Promise<Document> {
+        const response = await api.post<Document>(`/documents/${id}/archive`);
+        return response.data;
+    },
+
+    getDownloadUrl(id: number): string {
+        return `http://localhost:8081/api/documents/${id}/content?download=true`;
+    },
+
+    async getVersions(id: number): Promise<import('../types').DocumentVersion[]> {
+        const response = await api.get<import('../types').DocumentVersion[]>(`/documents/${id}/versions`);
+        return response.data;
     },
 };
 

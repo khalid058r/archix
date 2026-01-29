@@ -38,4 +38,19 @@ public class DocumentMapper {
         // par le service lors de la persistance
         return doc;
     }
+
+    public static archix_base.document.dto.DocumentVersionDto toVersionDto(
+            archix_base.document.entity.DocumentVersion version) {
+        if (version == null)
+            return null;
+        archix_base.document.dto.DocumentVersionDto dto = new archix_base.document.dto.DocumentVersionDto();
+        dto.setId(version.getId());
+        dto.setVersionNumber(version.getVersionNumber());
+        dto.setFileName(version.getFileName());
+        dto.setMimeType(version.getMimeType());
+        dto.setFileSize(version.getFileSize());
+        dto.setArchivedAt(version.getArchivedAt());
+        dto.setArchivedBy(version.getArchivedBy() != null ? version.getArchivedBy().getFullName() : "System");
+        return dto;
+    }
 }
