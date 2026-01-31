@@ -23,20 +23,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @AllArgsConstructor
 @Service
 public class UserService {
@@ -45,8 +31,55 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final PermissionRepo permissionRepo;
 
-    public List<UserDto> getAllUsers() {
-        return userRepo.findAll().stream().map(UserMapper::toDto).collect(Collectors.toList());
+    public List<UserDto> getAllUsers(Long organizationId) {
+        if (organizationId == null) {
+            throw new BadRequestException("Organization ID is required");
+        }
+        return userRepo.findByDepartmentOrganizationId(organizationId).stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public UserDto createUser(archix_base.identity.dto.RegisterDto dto, Long organizationId) {
+        if (organizationId == null) {
+            throw new BadRequestException("Organization ID is required");
+        }
+
+        // 1. Email Uniqueness
+        if (userRepo.existsByEmail(dto.getEmail())) {
+            throw new BadRequestException("Email already exists: " + dto.getEmail());
+        }
+
+        // 2. Department Validation
+        if (dto.getDepartmentId() == null) {
+            throw new BadRequestException("Department ID is required");
+        }
+        Department department = departmentRepo.findById(dto.getDepartmentId())
+                .orElseThrow(() -> new ResourceNotFoundException("Department not found: " + dto.getDepartmentId()));
+
+        // Security: Ensure Department belongs to Org
+        if (!department.getOrganization().getId().equals(organizationId)) {
+            throw new BadRequestException("Department does not belong to your organization");
+        }
+
+        // 3. Create User
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setPhone(dto.getPhone());
+        user.setIsActive(true);
+        user.setCreatedAt(LocalDateTime.now());
+        user.setDepartment(department);
+        user.setPasswordHash(passwordEncoder.encode(dto.getPassword()));
+
+        // 4. Default Roles/Permissions (Optional - for now standard USER)
+        // logic skipped for brevity, can assign default ROLE_USER if Role entity
+        // fetched
+
+        User savedUser = userRepo.save(user);
+        return UserMapper.toDto(savedUser);
     }
 
     public UserDto getUserById(Long id) {
@@ -101,11 +134,11 @@ public class UserService {
         User user = userRepo.findById(changeUserPermissionsDto.getUserId()).orElseThrow(
                 () -> new ResourceNotFoundException("User not found with id " + changeUserPermissionsDto.getUserId()));
         System.out.println("user : " + user);
-        List<Permission> permissions = changeUserPermissionsDto.getPermissionIds()
+        java.util.Set<Permission> permissions = changeUserPermissionsDto.getPermissionIds()
                 .stream()
                 .map((id) -> permissionRepo.findById(id).orElseThrow(
                         () -> new ResourceNotFoundException("Permission not found with id " + id)))
-                .collect(Collectors.toList());
+                .collect(java.util.stream.Collectors.toSet());
         user.setPermissions(permissions);
         User saved = userRepo.save(user);
         return UserMapper.toDto(saved);
@@ -153,12 +186,3 @@ public class UserService {
     }
 
 }
-
-
-
-
-
-
-
-
-

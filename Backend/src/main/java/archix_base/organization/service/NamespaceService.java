@@ -9,26 +9,13 @@ import archix_base.identity.repo.UserRepo;
 import archix_base.organization.entity.Namespace;
 import archix_base.organization.entity.Organization;
 import archix_base.organization.repo.NamespaceRepo;
+import archix_base.organization.repo.OrganizationRepo;
 import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @Service
 public class NamespaceService {
@@ -40,91 +27,121 @@ public class NamespaceService {
     @Autowired
     private UserRepo userRepository;
 
+    @Autowired
+    private OrganizationRepo organizationRepository;
+
     public NamespaceService(PermissionRepo permissionRepository) {
         this.permissionRepository = permissionRepository;
     }
 
+    // @Deprecated: Unsafe - kept only if absolute admin need (Use with caution)
     public List<Namespace> getAll() {
         return namespaceRepository.findAll();
     }
 
-    public List<Namespace> getRoots() {
-        return namespaceRepository.findByParentIsNull();
+    public List<Namespace> getRoots(Long organizationId) {
+        if (organizationId == null)
+            throw new IllegalArgumentException("Organization ID required for roots");
+        return namespaceRepository.findByParentIsNullAndOrganizationId(organizationId);
     }
 
-    public List<Namespace> getChildren(Long parentId) {
-        return namespaceRepository.findByParentId(parentId);
+    public List<Namespace> getChildren(Long parentId, Long organizationId) {
+        if (organizationId == null)
+            throw new IllegalArgumentException("Organization ID required");
+        // Ensure parent belongs to Org? Theoretically covered by
+        // 'findByParentIdAndOrganizationId'
+        // But the repo method needs to actually JOIN or check Resource.organizationId
+        // Assuming Resource has organization_id, strict check:
+        return namespaceRepository.findByParentIdAndOrganizationId(parentId, organizationId);
     }
 
-    public Namespace getById(Long id) {
-        return namespaceRepository.findById(id)
+    public Namespace getById(Long id, Long organizationId) {
+        Namespace ns = namespaceRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Namespace not found: " + id));
+
+        if (ns.getOrganization() == null || !ns.getOrganization().getId().equals(organizationId)) {
+            throw new EntityNotFoundException("Namespace not found in this organization: " + id);
+        }
+        return ns;
     }
 
-    public Namespace create(Namespace namespace, Long createdById, Long parentId) {
+    public Namespace create(Namespace namespace, Long createdById, Long parentId, Long organizationId) {
+        if (organizationId == null)
+            throw new IllegalArgumentException("Organization ID required");
+
         User createdBy = userRepository.findById(createdById)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + createdById));
+
+        Organization org = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new EntityNotFoundException("Organization not found: " + organizationId));
+
         namespace.setCreatedBy(createdBy);
+        namespace.setOrganization(org);
+
         if (parentId != null) {
             Namespace parent = namespaceRepository.findById(parentId)
                     .orElseThrow(() -> new EntityNotFoundException("Parent namespace not found: " + parentId));
+
+            if (!parent.getOrganization().getId().equals(organizationId)) {
+                throw new IllegalArgumentException("Parent namespace belongs to another organization");
+            }
             namespace.setParent(parent);
         }
-        if (namespaceRepository.existsByNameAndParentId(namespace.getName(), parentId)) {
-            throw new IllegalArgumentException("Un namespace avec ce nom existe dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©jÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  dans ce dossier.");
+
+        if (namespaceRepository.existsByNameAndParentIdAndOrganizationId(namespace.getName(), parentId,
+                organizationId)) {
+            throw new IllegalArgumentException("Un namespace avec ce nom existe déjà dans ce dossier.");
         }
         namespace.setCreatedAt(LocalDateTime.now());
         return namespaceRepository.save(namespace);
     }
 
     @Transactional
-    public Namespace update(Long id, Namespace data, Long parentId) {
-        Namespace ns = getById(id);
+    public Namespace update(Long id, Namespace data, Long parentId, Long organizationId) {
+        Namespace ns = getById(id, organizationId);
 
-        // DÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©termine le nouveau nom et le nouveau parent
         String newName = (data.getName() != null && !data.getName().trim().isEmpty()) ? data.getName().trim()
                 : ns.getName();
         Long newParentId = (parentId != null) ? parentId : (ns.getParent() != null ? ns.getParent().getId() : null);
 
-        // VÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©rification du doublon (exclure l'id courant !)
-        if (namespaceRepository.existsByNameAndParentIdAndIdNot(newName, newParentId, id)) {
-            throw new IllegalArgumentException("Un namespace avec ce nom existe dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©jÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  dans ce dossier.");
+        // Validation du doublon scoped to Org
+        if (namespaceRepository.existsByNameAndParentIdAndOrganizationIdAndIdNot(newName, newParentId, organizationId,
+                id)) {
+            throw new IllegalArgumentException("Un namespace avec ce nom existe déjà dans ce dossier.");
         }
 
-        // Mise ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  jour du nom
         if (data.getName() != null && !data.getName().trim().isEmpty()) {
             ns.setName(newName);
         }
 
-        // Mise ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â  jour du parent
         if (parentId != null) {
             Namespace parent = namespaceRepository.findById(parentId)
                     .orElseThrow(() -> new EntityNotFoundException("Parent namespace not found: " + parentId));
+            if (!parent.getOrganization().getId().equals(organizationId)) {
+                throw new IllegalArgumentException("New parent namespace belongs to another organization");
+            }
             ns.setParent(parent);
         } else if (data.getParent() == null && parentId == null) {
+            // Explicitly clearing parent -> Root
             ns.setParent(null);
         }
+
+        // Organization cannot be changed easily (removed potentially unsafe logic)
+
         return namespaceRepository.save(ns);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id, Long organizationId) {
+        Namespace ns = getById(id, organizationId); // Validates existence and Org
         permissionRepository.deleteByAppliesToId(id);
         namespaceRepository.deleteById(id);
     }
 
-    public List<Namespace> findAllByCreatedById(Long createdById) {
-        return namespaceRepository.findAllByCreatedById(createdById);
+    public List<Namespace> findAllByCreatedById(Long createdById, Long organizationId) {
+        return namespaceRepository.findAllByCreatedByIdAndOrganizationId(createdById, organizationId);
     }
 
-    public List<Namespace> advancedSearch(String name, Long parentId, Long createdById) {
-        return namespaceRepository.searchList(name, parentId, createdById);
+    public List<Namespace> advancedSearch(String name, Long parentId, Long createdById, Long organizationId) {
+        return namespaceRepository.searchList(name, parentId, createdById, organizationId);
     }
 }
-
-
-
-
-
-
-
-

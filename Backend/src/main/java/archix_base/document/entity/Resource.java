@@ -39,6 +39,10 @@ public abstract class Resource {
     @JsonBackReference
     private Namespace parent;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
+
     public String getPath() {
         if (parent == null)
             return "/" + name;

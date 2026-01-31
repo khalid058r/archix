@@ -46,10 +46,10 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+    private java.util.Set<Role> roles = new java.util.HashSet<>();
 
     @OneToMany(mappedBy = "grantedTo", fetch = FetchType.EAGER)
-    private List<Permission> permissions = new ArrayList<>();
+    private java.util.Set<Permission> permissions = new java.util.HashSet<>();
 
     /**
      * Get authorities from roles (system-wide) for Spring Security.

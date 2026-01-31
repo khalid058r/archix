@@ -31,6 +31,13 @@ public class UserMapper {
                             .toList());
         }
 
+        if (user.getRoles() != null) {
+            userDto.setRoles(
+                    user.getRoles().stream()
+                            .map(RoleMapper::toDto)
+                            .toList());
+        }
+
         return userDto;
     }
 }

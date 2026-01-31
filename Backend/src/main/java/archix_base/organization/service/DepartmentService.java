@@ -12,6 +12,9 @@ import archix_base.organization.mapper.DepartmentMapper;
 import archix_base.organization.mapper.OrganizationMapper;
 import archix_base.organization.repo.DepartmentRepo;
 import archix_base.organization.repo.OrganizationRepo;
+import archix_base.document.repo.DocumentRepo;
+import archix_base.document.entity.DocumentStatus;
+import archix_base.organization.dto.DepartmentStatsDto;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,29 +22,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @AllArgsConstructor
 @Service
 public class DepartmentService {
 
     private final DepartmentRepo departmentRepo;
     private final OrganizationRepo organizationRepo;
+    private final DocumentRepo documentRepo;
 
-    public List<DepartmentDto> getAllDepartments() {
-        List<Department> departments = departmentRepo.findAll();
+    public List<DepartmentDto> getAllDepartments(Long organizationId) {
+        if (organizationId == null) {
+            throw new BadRequestException("Organization ID is required to fetch departments");
+        }
+        List<Department> departments = departmentRepo.findAllByOrganizationId(organizationId);
         return departments.stream()
                 .map(DepartmentMapper::toDto)
                 .collect(Collectors.toList());
@@ -49,8 +42,7 @@ public class DepartmentService {
 
     public DepartmentDto getDepartmentById(Long id) {
         Department department = departmentRepo.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Department not found with id " + id)
-        );
+                () -> new ResourceNotFoundException("Department not found with id " + id));
         return DepartmentMapper.toDto(department);
     }
 
@@ -60,10 +52,10 @@ public class DepartmentService {
         department.setName(createDepartmentDto.getName());
         department.setDescription(createDepartmentDto.getDescription());
         department.setCreatedAt(LocalDateTime.now());
-        if (createDepartmentDto.getOrganizationId()!=null)
+        if (createDepartmentDto.getOrganizationId() != null)
             department.setOrganization(organizationRepo.findById(createDepartmentDto.getOrganizationId()).orElseThrow(
-                    () -> new ResourceNotFoundException("Organization not found with id " + createDepartmentDto.getOrganizationId())
-            ));
+                    () -> new ResourceNotFoundException(
+                            "Organization not found with id " + createDepartmentDto.getOrganizationId())));
         Department savedDepartment = departmentRepo.save(department);
         return DepartmentMapper.toDto(savedDepartment);
     }
@@ -74,8 +66,7 @@ public class DepartmentService {
             throw new BadRequestException("Organization id must not be null");
         }
         Department department = departmentRepo.findById(departmentDto.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Department not found with id " + departmentDto.getId())
-        );
+                () -> new ResourceNotFoundException("Department not found with id " + departmentDto.getId()));
         department.setName(departmentDto.getName());
         department.setDescription(departmentDto.getDescription());
 
@@ -89,11 +80,9 @@ public class DepartmentService {
             throw new BadRequestException("Both id and organizationId must not be null");
         }
         Department department = departmentRepo.findById(dto.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Department not found with id " + dto.getId())
-        );
+                () -> new ResourceNotFoundException("Department not found with id " + dto.getId()));
         department.setOrganization(organizationRepo.findById(dto.getOrganizationId()).orElseThrow(
-                () -> new ResourceNotFoundException("Organization not found with id " + dto.getOrganizationId())
-        ));
+                () -> new ResourceNotFoundException("Organization not found with id " + dto.getOrganizationId())));
         Department updatedDepartment = departmentRepo.save(department);
         return DepartmentMapper.toDto(updatedDepartment);
     }
@@ -110,19 +99,29 @@ public class DepartmentService {
     }
 
     public List<DepartmentDto> getDepartmentsByOrganization(Long organizationId) {
-        List<Department> departments = departmentRepo.findByOrganization(organizationRepo.findById(organizationId).orElseThrow(
-                () -> new ResourceNotFoundException("Department not found with id " + organizationId)
-        ));
+        List<Department> departments = departmentRepo
+                .findByOrganization(organizationRepo.findById(organizationId).orElseThrow(
+                        () -> new ResourceNotFoundException("Department not found with id " + organizationId)));
         return departments.stream()
                 .map(DepartmentMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public DepartmentStatsDto getDepartmentStats(Long departmentId) {
+        Department department = departmentRepo.findById(departmentId).orElseThrow(
+                () -> new ResourceNotFoundException("Department not found with id " + departmentId));
+
+        int memberCount = department.getUsers() != null ? department.getUsers().size() : 0;
+        long docCount = documentRepo.countByDepartmentId(departmentId);
+        long pendingDocCount = documentRepo.countByDepartmentIdAndStatus(departmentId, DocumentStatus.PENDING);
+
+        return DepartmentStatsDto.builder()
+                .id(department.getId())
+                .name(department.getName())
+                .memberCount(memberCount)
+                .documentCount(docCount)
+                .pendingDocumentsCount(pendingDocCount)
+                .storageUsedBytes(0) // Placeholder
+                .build();
+    }
 }
-
-
-
-
-
-
-
-

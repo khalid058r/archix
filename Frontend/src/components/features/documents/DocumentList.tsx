@@ -4,20 +4,34 @@ import { Card } from '../../ui/Card/Card';
 import { Badge } from '../../ui/Badge/Badge';
 import { Button } from '../../ui/Button/Button';
 import { useGetDocumentsQuery } from '../../../api/endpoints/documentsApi';
+import type { GetDocumentsParams } from '../../../api/endpoints/documentsApi';
 import { DocumentActions } from './DocumentActions';
+import { PdfThumbnail } from '../../ui/PdfThumbnail/PdfThumbnail';
 
 interface DocumentListProps {
     compact?: boolean;
     limit?: number;
+    queryParams?: GetDocumentsParams;
+    viewMode?: 'list' | 'grid';
 }
 
-export const DocumentList = ({ compact = false, limit = 10 }: DocumentListProps) => {
+export const DocumentList = ({
+    compact = false,
+    limit = 10,
+    queryParams,
+    viewMode = 'list'
+}: DocumentListProps) => {
     const navigate = useNavigate();
-    const { data, isLoading, error } = useGetDocumentsQuery({
+
+    // Merge default params with provided queryParams
+    const finalParams = {
         page: 0,
         size: limit,
-        sort: 'createdAt,desc'
-    });
+        sort: 'createdAt,desc',
+        ...queryParams
+    };
+
+    const { data, isLoading, error } = useGetDocumentsQuery(finalParams);
 
     const documents = data?.content || [];
 
@@ -41,6 +55,61 @@ export const DocumentList = ({ compact = false, limit = 10 }: DocumentListProps)
         return (
             <div className="p-8 text-center text-gray-500">
                 Aucun document trouvé
+            </div>
+        );
+    }
+
+    if (viewMode === 'grid') {
+        return (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {documents.map((doc) => (
+                    <Card
+                        key={doc.id}
+                        className="group flex flex-col hover:shadow-lg transition-all cursor-pointer overflow-hidden border border-gray-100 bg-white"
+                        noPadding
+                        onClick={() => navigate(`/documents/${doc.id}`)}
+                    >
+                        {/* Preview Area */}
+                        <div className="relative aspect-[4/3] w-full bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100">
+                            {doc.mimeType === 'application/pdf' ? (
+                                <div className="w-full h-full flex items-center justify-center">
+                                    <PdfThumbnail
+                                        fileUrl={`/documents/${doc.id}/content`}
+                                        width={300}
+                                        className="h-full w-full object-contain pointer-events-none"
+                                    />
+                                </div>
+                            ) : (
+                                <div className="text-gray-300 group-hover:text-primary/20 transition-colors transform group-hover:scale-110 duration-300">
+                                    <FileText size={64} strokeWidth={1} />
+                                </div>
+                            )}
+
+                            {/* Hover Overlay Actions */}
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-[2px]">
+                                <div
+                                    className="bg-white p-2 rounded-full shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <DocumentActions document={doc} />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Info Footer */}
+                        <div className="p-4 flex flex-col justify-between flex-1 gap-2">
+                            <h3 className="font-medium text-gray-900 truncate text-sm" title={doc.name || doc.title}>
+                                {doc.name || doc.title || doc.fileName}
+                            </h3>
+                            <div className="flex items-center justify-between mt-auto">
+                                <Badge status={doc.status} />
+                                <span className="text-xs text-gray-400">
+                                    {new Date(doc.updatedAt).toLocaleDateString()}
+                                </span>
+                            </div>
+                        </div>
+                    </Card>
+                ))}
             </div>
         );
     }
@@ -71,7 +140,7 @@ export const DocumentList = ({ compact = false, limit = 10 }: DocumentListProps)
                                             <FileText size={20} />
                                         </div>
                                         <div>
-                                            <div className="font-medium text-gray-900">{doc.title}</div>
+                                            <div className="font-medium text-gray-900">{doc.name || doc.title}</div>
                                             <div className="text-xs text-gray-500">{(doc.fileSize / 1024 / 1024).toFixed(2)} MB</div>
                                         </div>
                                     </div>

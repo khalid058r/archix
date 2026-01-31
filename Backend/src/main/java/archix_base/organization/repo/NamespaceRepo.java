@@ -11,45 +11,52 @@ import org.springframework.data.repository.query.Param;
 
 public interface NamespaceRepo extends JpaRepository<Namespace, Long> {
 
-        boolean existsByNameAndParentId(String name, Long parentId);
+        boolean existsByNameAndParentIdAndOrganizationId(String name, Long parentId, Long organizationId);
 
-        boolean existsByNameAndParentIdAndIdNot(String newName, Long newParentId, Long id);
+        boolean existsByNameAndParentIdAndOrganizationIdAndIdNot(String newName, Long newParentId, Long organizationId,
+                        Long id);
 
-        // Ownership check
+        // Ownership & Org check
+        boolean existsByIdAndOrganizationId(Long id, Long organizationId);
+
         boolean existsByIdAndCreatedById(Long id, Long createdById);
 
-        // Avec pagination
-        Page<Namespace> findAllByCreatedById(Long createdById, Pageable pageable);
+        // Avec pagination logic Org
+        Page<Namespace> findAllByCreatedByIdAndOrganizationId(Long createdById, Long organizationId, Pageable pageable);
 
-        Page<Namespace> findByParentId(Long parentId, Pageable pageable);
+        Page<Namespace> findByParentIdAndOrganizationId(Long parentId, Long organizationId, Pageable pageable);
 
         // Sans pagination
-        List<Namespace> findAllByCreatedById(Long createdById);
+        List<Namespace> findAllByCreatedByIdAndOrganizationId(Long createdById, Long organizationId);
 
-        List<Namespace> findByParentId(Long parentId);
+        List<Namespace> findByParentIdAndOrganizationId(Long parentId, Long organizationId);
 
-        // Racines (sans parent)
-        Page<Namespace> findByParentIsNull(Pageable pageable);
+        // Racines (sans parent) dans l'Org
+        Page<Namespace> findByParentIsNullAndOrganizationId(Long organizationId, Pageable pageable);
 
-        List<Namespace> findByParentIsNull();
+        List<Namespace> findByParentIsNullAndOrganizationId(Long organizationId);
 
-        // Recherche
+        // Recherche (Secured)
         @Query("SELECT n FROM Namespace n WHERE " +
                         "(:name IS NULL OR n.name LIKE %:name%) AND " +
                         "(:parentId IS NULL OR n.parent.id = :parentId) AND " +
-                        "(:createdById IS NULL OR n.createdBy.id = :createdById)")
+                        "(:createdById IS NULL OR n.createdBy.id = :createdById) AND " +
+                        "(:organizationId IS NULL OR n.organization.id = :organizationId)")
         Page<Namespace> search(
                         @Param("name") String name,
                         @Param("parentId") Long parentId,
                         @Param("createdById") Long createdById,
+                        @Param("organizationId") Long organizationId,
                         Pageable pageable);
 
         @Query("SELECT n FROM Namespace n WHERE " +
                         "(:name IS NULL OR n.name LIKE %:name%) AND " +
                         "(:parentId IS NULL OR n.parent.id = :parentId) AND " +
-                        "(:createdById IS NULL OR n.createdBy.id = :createdById)")
+                        "(:createdById IS NULL OR n.createdBy.id = :createdById) AND " +
+                        "(:organizationId IS NULL OR n.organization.id = :organizationId)")
         List<Namespace> searchList(
                         @Param("name") String name,
                         @Param("parentId") Long parentId,
-                        @Param("createdById") Long createdById);
+                        @Param("createdById") Long createdById,
+                        @Param("organizationId") Long organizationId);
 }

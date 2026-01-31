@@ -11,8 +11,9 @@ import archix_base.identity.repo.UserRepo;
 import archix_base.organization.entity.Namespace;
 import archix_base.organization.entity.Organization;
 import archix_base.organization.repo.NamespaceRepo;
+import archix_base.organization.repo.OrganizationRepo;
 import lombok.RequiredArgsConstructor;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -33,19 +34,25 @@ public class DocumentService {
     private final DocumentVersionRepo documentVersionRepository;
     private final NamespaceRepo namespaceRepository;
     private final UserRepo userRepository;
+    private final OrganizationRepo organizationRepository;
     private final archix_base.audit.service.AuditService auditService;
 
-    public List<Document> getAll() {
-        return documentRepository.findAll();
-    }
+    // --- Organization-Aware Methods ---
 
-    public Document getById(Long id) {
-        return documentRepository.findById(id)
+    public Document getById(Long id, Long organizationId, Long userId) {
+        // Enforce organization check
+        Document doc = documentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Document not found: " + id));
+
+        if (doc.getOrganization() == null || !doc.getOrganization().getId().equals(organizationId)) {
+            throw new EntityNotFoundException("Document not found in this organization: " + id);
+        }
+        return doc;
     }
 
-    public byte[] getDocumentContent(Long id) {
-        Document doc = getById(id);
+    @Transactional
+    public byte[] getDocumentContent(Long id, Long organizationId, Long userId) {
+        Document doc = getById(id, organizationId, userId);
         // Force initialization of lazy content within transaction
         if (doc.getContent() == null) {
             return new byte[0];
@@ -53,24 +60,37 @@ public class DocumentService {
         return doc.getContent();
     }
 
-    public Document create(Document doc, Long createdById, Long parentId) {
+    public Document create(Document doc, Long createdById, Long parentId, Long organizationId) {
         if (doc == null)
             throw new IllegalArgumentException("Document data must not be null");
         if (createdById == null)
             throw new IllegalArgumentException("createdById must not be null");
+        if (organizationId == null)
+            throw new IllegalArgumentException("organizationId must not be null");
+
         User createdBy = userRepository.findById(createdById)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + createdById));
+
+        Organization organization = organizationRepository.findById(organizationId)
+                .orElseThrow(() -> new EntityNotFoundException("Organization not found: " + organizationId));
+
         doc.setCreatedBy(createdBy);
+        doc.setOrganization(organization);
+
         if (parentId != null) {
             Namespace parent = namespaceRepository.findById(parentId)
                     .orElseThrow(() -> new EntityNotFoundException("Namespace not found: " + parentId));
+            // Optional: Check if parent namespace belongs to the same organization
             doc.setParent(parent);
         }
-        // Protection contre les doublons
-        if (documentRepository.existsByFileNameAndParentId(doc.getFileName(), parentId)) {
+
+        // Protection duplicate (scoped to Org/Parent)
+        if (documentRepository.existsByFileNameAndParentIdAndOrganizationId(doc.getFileName(), parentId,
+                organizationId)) {
             throw new IllegalArgumentException(
                     "Un document avec ce fileName existe déjà dans ce dossier.");
         }
+
         doc.setCreatedAt(LocalDateTime.now());
         doc.setUpdatedAt(LocalDateTime.now());
         doc.setStatus(archix_base.document.entity.DocumentStatus.DRAFT);
@@ -83,8 +103,8 @@ public class DocumentService {
     }
 
     @Transactional
-    public Document update(Long id, Document data, Long parentId, User actor) {
-        Document doc = getById(id);
+    public Document update(Long id, Document data, Long parentId, User actor, Long organizationId) {
+        Document doc = getById(id, organizationId, actor.getId());
 
         // Determines new values
         String newFileName = data.getFileName() != null ? data.getFileName() : doc.getFileName();
@@ -94,8 +114,10 @@ public class DocumentService {
         boolean fileNameChanged = data.getFileName() != null && !data.getFileName().equals(doc.getFileName());
         boolean parentChanged = parentId != null
                 && (doc.getParent() == null || !parentId.equals(doc.getParent().getId()));
+
         if (fileNameChanged || parentChanged) {
-            if (documentRepository.existsByFileNameAndParentIdAndIdNot(newFileName, newParentId, id)) {
+            if (documentRepository.existsByFileNameAndParentIdAndOrganizationIdAndIdNot(newFileName, newParentId,
+                    organizationId, id)) {
                 throw new IllegalArgumentException(
                         "Un document avec ce fileName existe déjà dans ce dossier.");
             }
@@ -142,63 +164,45 @@ public class DocumentService {
         return saved;
     }
 
-    public void delete(Long id, User actor) {
+    public void delete(Long id, User actor, Long organizationId) {
+        // Validation handled by getById
+        Document doc = getById(id, organizationId, actor.getId());
+
         permissionRepository.deleteByAppliesToId(id);
         documentRepository.deleteById(id);
         auditService.log("DELETE", "Document", id.toString(), actor.getId(), actor.getUsername(), "Deleted document");
     }
 
-    public List<Document> getDocumentsByNamespace(Long namespaceId) {
-        return documentRepository.findByParentId(namespaceId);
-    }
+    // --- Scoped Listings ---
 
-    public boolean existsById(Long id) {
-        return documentRepository.existsById(id);
-    }
-
-    public long count() {
-        return documentRepository.count();
-    }
-
-    // for mor option and testing
-    public Optional<Document> findByFileName(String fileName) {
-        return documentRepository.findByFileName(fileName);
-    }
-
-    public List<Document> findAllByCreatedById(Long createdById) {
-        return documentRepository.findAllByCreatedById(createdById);
-    }
-
-    public List<Document> advancedSearch(String fileName, String name, String mimeType, Long parentId,
-            Long createdById) {
-        return documentRepository.searchList(fileName, name, mimeType, parentId, createdById);
-    }
-    // DocumentService.java
-
-    public Page<Document> getAll(Pageable pageable, archix_base.document.entity.DocumentStatus status) {
+    public Page<Document> getAll(Pageable pageable, archix_base.document.entity.DocumentStatus status,
+            Long organizationId, Long userId) {
         if (status != null) {
-            return documentRepository.findAllByStatus(status, pageable);
+            return documentRepository.findAllByStatusAndOrganizationId(status, organizationId, pageable);
         }
-        return documentRepository.findAll(pageable);
+        return documentRepository.findAllByOrganizationId(organizationId, pageable);
     }
 
-    public Page<Document> getDocumentsByNamespace(Long namespaceId, Pageable pageable) {
-        return documentRepository.findByParentId(namespaceId, pageable);
+    public Page<Document> getDocumentsByNamespace(Long namespaceId, Long organizationId, Pageable pageable,
+            Long userId) {
+        // Ensure Namespace is in Org? (Ideally yes, but for now filtering doc is
+        // enough)
+        return documentRepository.findByParentIdAndOrganizationId(namespaceId, organizationId, pageable);
     }
 
-    public Page<Document> findAllByCreatedById(Long createdById, Pageable pageable) {
-        return documentRepository.findAllByCreatedById(createdById, pageable);
+    public Page<Document> findAllByCreatedById(Long createdById, Long organizationId, Pageable pageable) {
+        return documentRepository.findAllByCreatedByIdAndOrganizationId(createdById, organizationId, pageable);
     }
 
     public Page<Document> search(String fileName, String name, String mimeType,
-            Long parentId, Long createdById, Pageable pageable) {
-        return documentRepository.search(fileName, name, mimeType, parentId, createdById, pageable);
+            Long parentId, Long createdById, Long organizationId, Pageable pageable, Long userId) {
+        return documentRepository.search(fileName, name, mimeType, parentId, createdById, organizationId, pageable);
     }
 
     // --- Workflow Transitions ---
 
-    public Document submitForReview(Long id, User actor) {
-        Document doc = getById(id);
+    public Document submitForReview(Long id, User actor, Long organizationId) {
+        Document doc = getById(id, organizationId, actor.getId());
         if (doc.getStatus() != archix_base.document.entity.DocumentStatus.DRAFT
                 && doc.getStatus() != archix_base.document.entity.DocumentStatus.REJECTED) {
             throw new IllegalStateException(
@@ -211,8 +215,8 @@ public class DocumentService {
         return saved;
     }
 
-    public Document startReview(Long id, User actor) {
-        Document doc = getById(id);
+    public Document startReview(Long id, User actor, Long organizationId) {
+        Document doc = getById(id, organizationId, actor.getId());
         if (doc.getStatus() != archix_base.document.entity.DocumentStatus.PENDING_REVIEW) {
             throw new IllegalStateException(
                     "Document must be PENDING_REVIEW to start review. Current: " + doc.getStatus());
@@ -224,8 +228,8 @@ public class DocumentService {
         return saved;
     }
 
-    public Document approve(Long id, User actor) {
-        Document doc = getById(id);
+    public Document approve(Long id, User actor, Long organizationId) {
+        Document doc = getById(id, organizationId, actor.getId());
         if (doc.getStatus() != archix_base.document.entity.DocumentStatus.IN_REVIEW) {
             throw new IllegalStateException("Document must be IN_REVIEW to be approved. Current: " + doc.getStatus());
         }
@@ -236,8 +240,8 @@ public class DocumentService {
         return saved;
     }
 
-    public Document reject(Long id, String reason, User actor) {
-        Document doc = getById(id);
+    public Document reject(Long id, String reason, User actor, Long organizationId) {
+        Document doc = getById(id, organizationId, actor.getId());
         if (doc.getStatus() != archix_base.document.entity.DocumentStatus.IN_REVIEW
                 && doc.getStatus() != archix_base.document.entity.DocumentStatus.PENDING_REVIEW) {
             throw new IllegalStateException(
@@ -251,8 +255,8 @@ public class DocumentService {
         return saved;
     }
 
-    public Document publish(Long id, User actor) {
-        Document doc = getById(id);
+    public Document publish(Long id, User actor, Long organizationId) {
+        Document doc = getById(id, organizationId, actor.getId());
         if (doc.getStatus() != archix_base.document.entity.DocumentStatus.APPROVED) {
             throw new IllegalStateException("Document must be APPROVED to be published. Current: " + doc.getStatus());
         }
@@ -263,8 +267,8 @@ public class DocumentService {
         return saved;
     }
 
-    public Document archive(Long id, User actor) {
-        Document doc = getById(id);
+    public Document archive(Long id, User actor, Long organizationId) {
+        Document doc = getById(id, organizationId, actor.getId());
         if (doc.getStatus() != archix_base.document.entity.DocumentStatus.PUBLISHED) {
             throw new IllegalStateException("Document must be PUBLISHED to be archived. Current: " + doc.getStatus());
         }
@@ -275,9 +279,9 @@ public class DocumentService {
         return saved;
     }
 
-    public archix_base.document.dto.DocumentStatsDTO getStats() {
-        long total = documentRepository.count();
-        List<Object[]> counts = documentRepository.countByStatus();
+    public archix_base.document.dto.DocumentStatsDTO getStats(Long organizationId, Long userId) {
+        long total = documentRepository.countByOrganizationId(organizationId);
+        List<Object[]> counts = documentRepository.countByStatusAndOrganizationId(organizationId);
 
         long drafts = 0;
         long review = 0;
@@ -315,7 +319,21 @@ public class DocumentService {
                 .build();
     }
 
-    public List<archix_base.document.entity.DocumentVersion> getVersions(Long documentId) {
+    public List<archix_base.document.dto.DocumentVersionDto> getVersionDtos(Long documentId, Long organizationId,
+            Long userId) {
+        // Perform check
+        getById(documentId, organizationId, userId);
+        List<archix_base.document.entity.DocumentVersion> versions = documentVersionRepository
+                .findAllByDocumentIdWithArchivedBy(documentId);
+        return versions.stream()
+                .map(archix_base.document.mapper.DocumentMapper::toVersionDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<archix_base.document.entity.DocumentVersion> getVersions(Long documentId, Long organizationId,
+            Long userId) {
+        // Perform check
+        getById(documentId, organizationId, userId);
         return documentVersionRepository.findByDocumentId(documentId);
     }
 }

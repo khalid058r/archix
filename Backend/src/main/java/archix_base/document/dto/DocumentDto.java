@@ -55,4 +55,7 @@ public class DocumentDto {
     private String createdByName;
 
     private Long parentId;
+    private archix_base.organization.dto.NamespaceDto namespace;
+    private Long organizationId;
+    private Long currentVersion;
 }

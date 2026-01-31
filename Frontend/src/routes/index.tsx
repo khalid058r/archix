@@ -13,6 +13,12 @@ import DocumentDetailPage from '../pages/documents/DocumentDetailPage';
 import NamespacesPage from '../pages/namespaces/NamespacesPage';
 import SearchPage from '../pages/search/SearchPage';
 import AuditLogsPage from '../pages/admin/AuditLogsPage';
+import UsersPage from '../pages/admin/UsersPage';
+import DepartmentsPage from '../pages/admin/DepartmentsPage';
+import Organizations from '../pages/admin/Organizations';
+import SettingsPage from '../pages/admin/SettingsPage';
+import TeamsPage from '../pages/admin/TeamsPage';
+import DepartmentDashboard from '../pages/department/DepartmentDashboard';
 
 const router = createBrowserRouter([
     {
@@ -42,18 +48,21 @@ const router = createBrowserRouter([
             { path: 'dashboard', element: <DashboardPage /> },
             { path: 'documents', element: <DocumentsPage /> },
             { path: 'documents/upload', element: <DocumentUploadPage /> },
+            { path: 'teams', element: <TeamsPage /> },
             { path: 'documents/:id', element: <DocumentDetailPage /> },
 
             // New Routes
             { path: 'namespaces', element: <NamespacesPage /> },
             { path: 'search', element: <SearchPage /> },
-            { path: 'department', element: <div>Vue Département (Bientôt)</div> },
+            { path: 'department', element: <DepartmentDashboard /> },
             { path: 'department/members', element: <div>Membres Département (Bientôt)</div> },
 
             // Admin Routes
-            { path: 'admin/users', element: <div>Gestion Utilisateurs (Bientôt)</div> },
-            { path: 'admin/departments', element: <div>Gestion Départements (Bientôt)</div> },
+            { path: 'admin/users', element: <UsersPage /> },
+            { path: 'admin/departments', element: <DepartmentsPage /> },
+            { path: 'admin/organizations', element: <Organizations /> },
             { path: 'admin/audit', element: <AuditLogsPage /> },
+            { path: 'admin/settings', element: <SettingsPage /> },
         ],
     },
     {

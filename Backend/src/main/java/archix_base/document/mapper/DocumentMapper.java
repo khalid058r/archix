@@ -3,6 +3,8 @@ package archix_base.document.mapper;
 import archix_base.document.dto.DocumentDto;
 import archix_base.document.entity.Document;
 
+import archix_base.organization.mapper.NamespaceMapper;
+
 public class DocumentMapper {
 
     public static DocumentDto toDto(Document doc) {
@@ -20,6 +22,11 @@ public class DocumentMapper {
         dto.setCreatedById(doc.getCreatedBy() != null ? doc.getCreatedBy().getId() : null);
         dto.setCreatedByName(doc.getCreatedBy() != null ? doc.getCreatedBy().getFullName() : "Unknown");
         dto.setParentId(doc.getParent() != null ? doc.getParent().getId() : null);
+        // Map full Namespace object for Frontend display
+        if (doc.getParent() != null) {
+            dto.setNamespace(NamespaceMapper.toDto(doc.getParent()));
+        }
+        dto.setOrganizationId(doc.getOrganization() != null ? doc.getOrganization().getId() : null);
         return dto;
     }
 
@@ -43,14 +50,20 @@ public class DocumentMapper {
             archix_base.document.entity.DocumentVersion version) {
         if (version == null)
             return null;
-        archix_base.document.dto.DocumentVersionDto dto = new archix_base.document.dto.DocumentVersionDto();
-        dto.setId(version.getId());
-        dto.setVersionNumber(version.getVersionNumber());
-        dto.setFileName(version.getFileName());
-        dto.setMimeType(version.getMimeType());
-        dto.setFileSize(version.getFileSize());
-        dto.setArchivedAt(version.getArchivedAt());
-        dto.setArchivedBy(version.getArchivedBy() != null ? version.getArchivedBy().getFullName() : "System");
-        return dto;
+        try {
+            archix_base.document.dto.DocumentVersionDto dto = new archix_base.document.dto.DocumentVersionDto();
+            dto.setId(version.getId());
+            dto.setVersionNumber(version.getVersionNumber());
+            dto.setFileName(version.getFileName());
+            dto.setMimeType(version.getMimeType());
+            dto.setFileSize(version.getFileSize());
+            dto.setArchivedAt(version.getArchivedAt());
+            dto.setArchivedBy(version.getArchivedBy() != null ? version.getArchivedBy().getFullName() : "System");
+            return dto;
+        } catch (Exception e) {
+            System.err.println("ERROR mapping DocumentVersion ID " + version.getId() + ": " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

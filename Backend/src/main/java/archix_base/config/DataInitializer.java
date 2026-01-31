@@ -1,77 +1,157 @@
 package archix_base.config;
 
-import archix_base.identity.entity.Role;
-import archix_base.identity.entity.RoleType;
 import archix_base.identity.entity.User;
-import archix_base.identity.repo.RoleRepo;
 import archix_base.identity.repo.UserRepo;
+import archix_base.organization.entity.Department;
+import archix_base.organization.entity.Organization;
+import archix_base.organization.repo.DepartmentRepo;
+import archix_base.organization.repo.OrganizationRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
-@Configuration
+import archix_base.document.repo.DocumentRepo;
+
+@Component
 @RequiredArgsConstructor
-public class DataInitializer {
+public class DataInitializer implements CommandLineRunner {
 
     private final UserRepo userRepo;
-    private final RoleRepo roleRepo;
-    private final PasswordEncoder passwordEncoder;
+    private final OrganizationRepo organizationRepo;
+    private final DepartmentRepo departmentRepo;
+    private final DocumentRepo documentRepo;
+    private final archix_base.identity.repo.RoleRepo roleRepo;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
-    private final org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
+    @Override
+    @Transactional
+    public void run(String... args) throws Exception {
+        createDefaultRoles();
+        createSuperAdmin();
+        fixOrphanUsers();
+        fixOrphanDocuments();
+    }
 
-    @Bean
-    public CommandLineRunner initData() {
-        return args -> {
-            // Migration: Fix Role Types if existing from previous version
-            try {
-                // Drop the constraint preventing the update
-                jdbcTemplate.execute("ALTER TABLE roles DROP CONSTRAINT IF EXISTS roles_type_check");
-
-                // Update legacy values
-                jdbcTemplate.execute(
-                        "UPDATE roles SET type = 'USER', description = 'Default description for USER' WHERE type = 'EDITOR'");
-                jdbcTemplate.execute(
-                        "UPDATE roles SET type = 'READER', description = 'Default description for READER' WHERE type = 'VIEWER'");
-
-                System.out.println("Migrated roles successfully.");
-            } catch (Exception e) {
-                System.err.println("Migration warning: " + e.getMessage());
-                // Continue, as it might have been already done
+    private void createDefaultRoles() {
+        for (archix_base.identity.entity.RoleType type : archix_base.identity.entity.RoleType.values()) {
+            if (!roleRepo.existsByType(type)) {
+                archix_base.identity.entity.Role role = new archix_base.identity.entity.Role(type);
+                role.setDescription("Default role for " + type.name());
+                roleRepo.save(role);
             }
+        }
+    }
 
-            // Seed Roles if not exist
-            for (RoleType roleType : RoleType.values()) {
-                if (roleRepo.findByType(roleType).isEmpty()) {
-                    roleRepo.save(new Role(roleType, "Default description for " + roleType.name()));
-                }
+    private void createSuperAdmin() {
+        if (userRepo.existsByEmail("admin@archix.com")) {
+            return;
+        }
+
+        System.out.println("Creating Super Admin user...");
+
+        // 1. Create Organization
+        Organization org = new Organization();
+        org.setName("Archix Administration");
+        org.setCreatedAt(LocalDateTime.now());
+        org.setDescription("Main administration organization");
+        org = organizationRepo.save(org);
+
+        // 2. Create Dept
+        Department dept = new Department();
+        dept.setName("IT Security");
+        dept.setOrganization(org);
+        dept.setCreatedAt(LocalDateTime.now());
+        dept = departmentRepo.save(dept);
+
+        // 3. Create User
+        User admin = new User();
+        // admin.setUsername("admin"); // Removed: Username is email
+        admin.setEmail("admin@archix.com");
+        admin.setFirstName("Super");
+        admin.setLastName("Admin");
+        admin.setPasswordHash(passwordEncoder.encode("password123"));
+        admin.setDepartment(dept);
+        // admin.setJobTitle("System Administrator"); // Removed: Field does not exist
+        admin.setCreatedAt(LocalDateTime.now());
+        // admin.setUpdatedAt(LocalDateTime.now()); // Removed: Field does not exist
+        admin.setIsActive(true);
+
+        // Assign Roles
+        archix_base.identity.entity.Role superAdminRole = roleRepo
+                .findByType(archix_base.identity.entity.RoleType.SUPER_ADMIN)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        archix_base.identity.entity.Role adminRole = roleRepo.findByType(archix_base.identity.entity.RoleType.ADMIN)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+
+        admin.setRoles(java.util.Set.of(superAdminRole, adminRole));
+
+        userRepo.save(admin);
+        System.out.println("Super Admin created: admin@archix.com / password123");
+    }
+
+    private void fixOrphanUsers() {
+        List<User> orphans = userRepo.findAll().stream()
+                .filter(u -> u.getDepartment() == null)
+                .toList();
+
+        if (orphans.isEmpty()) {
+            return;
+        }
+
+        System.out.println("Found " + orphans.size() + " orphan users. Creating personal organizations...");
+
+        for (User user : orphans) {
+            createPersonalOrganization(user);
+        }
+    }
+
+    private void fixOrphanDocuments() {
+        List<archix_base.document.entity.Document> orphans = documentRepo.findAll().stream()
+                .filter(d -> d.getOrganization() == null)
+                .toList();
+
+        if (orphans.isEmpty()) {
+            return;
+        }
+
+        System.out.println("Found " + orphans.size() + " orphan documents. Fixing...");
+
+        for (archix_base.document.entity.Document doc : orphans) {
+            if (doc.getCreatedBy() != null && doc.getCreatedBy().getDepartment() != null
+                    && doc.getCreatedBy().getDepartment().getOrganization() != null) {
+                doc.setOrganization(doc.getCreatedBy().getDepartment().getOrganization());
+                documentRepo.save(doc);
+                System.out.println("Fixed document: " + doc.getFileName());
             }
+        }
+    }
 
-            // ... (rest of user seeding)
+    private void createPersonalOrganization(User user) {
+        String orgName = (user.getFirstName() != null ? user.getFirstName() : user.getUsername()) + "'s Organization";
 
-            // Seed Test User
-            String email = "test@archix.com";
-            if (userRepo.findByEmail(email).isEmpty()) {
-                User user = new User();
-                user.setEmail(email);
-                user.setPasswordHash(passwordEncoder.encode("password123"));
-                user.setFirstName("Test");
-                user.setLastName("User");
-                user.setIsActive(true);
-                user.setCreatedAt(LocalDateTime.now());
+        // 1. Create Organization
+        Organization org = new Organization();
+        org.setName(orgName);
+        org.setCreatedAt(LocalDateTime.now());
+        org.setDescription("Personal organization for " + user.getEmail());
+        org = organizationRepo.save(org);
 
-                // Assign ADMIN role
-                Optional<Role> adminRole = roleRepo.findByType(RoleType.ADMIN);
-                adminRole.ifPresent(role -> user.setRoles(Collections.singletonList(role)));
+        // 2. Create Default Department
+        Department dept = new Department();
+        dept.setName("Main");
+        dept.setDescription("Default department");
+        dept.setCreatedAt(LocalDateTime.now());
+        dept.setOrganization(org);
+        dept = departmentRepo.save(dept);
 
-                userRepo.save(user);
-                System.out.println("Seeded user: " + email);
-            }
-        };
+        // 3. Link User
+        user.setDepartment(dept);
+        userRepo.save(user);
+
+        System.out.println("Created Personal Organization for user: " + user.getEmail());
     }
 }

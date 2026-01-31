@@ -36,7 +36,7 @@ export const namespacesApi = baseApi.injectEndpoints({
                 url: `/namespaces/${id}/documents`,
                 method: 'GET',
             }),
-            providesTags: (_result, _error, id) => [{ type: 'Document' as const, id: `ns-${id}` }],
+            providesTags: (_result, _error, id) => ['Document', { type: 'Document' as const, id: `ns-${id}` }],
         }),
         createNamespace: builder.mutation<Namespace, CreateNamespaceRequest>({
             query: (data) => ({

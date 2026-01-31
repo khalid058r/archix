@@ -12,7 +12,8 @@ export type DocumentStatus =
 
 export interface Document {
     id: number;
-    title: string;
+    title?: string; // @deprecated use name
+    name: string;
     fileName: string;
     filePath: string;
     fileSize: number;

@@ -17,6 +17,19 @@ api.interceptors.request.use(
         if (token && config.headers) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+
+        // Add Organization ID header
+        const currentOrgStr = localStorage.getItem('currentOrganization');
+        if (currentOrgStr) {
+            try {
+                const org = JSON.parse(currentOrgStr);
+                if (org && org.id && config.headers) {
+                    config.headers['X-Organization-ID'] = org.id;
+                }
+            } catch (e) {
+                console.error("Failed to parse currentOrganization", e);
+            }
+        }
         return config;
     },
     (error) => {

@@ -12,14 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-
-
-
-
-
-
-
-
 public interface UserRepo extends JpaRepository<User, Long> {
 
         Optional<User> findByEmail(String email);
@@ -50,4 +42,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
                         Pageable pageable);
 
         List<User> findByPermissionsContaining(Permission permission);
+
+        // Security: Find users by Organization (via Department)
+        List<User> findByDepartmentOrganizationId(Long organizationId);
 }

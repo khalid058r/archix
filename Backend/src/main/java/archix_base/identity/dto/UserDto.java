@@ -7,16 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.*;
 
-
-
-
-
-
-
-
-
-
-
 //package archix_base.identity.dto;
 
 //
@@ -49,9 +39,6 @@ import lombok.*;
 //    private List<PermissionDto> permissions;
 //}
 
-
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -79,17 +66,10 @@ public class UserDto {
 
     private List<PermissionDto> permissions;
 
+    private List<RoleDto> roles;
+
     // Champ calculÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© pour le frontend
     public String getFullName() {
         return (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "");
     }
 }
-
-
-
-
-
-
-
-
-

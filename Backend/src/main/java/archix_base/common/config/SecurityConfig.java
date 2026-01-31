@@ -93,7 +93,8 @@ public class SecurityConfig {
                                 "Accept",
                                 "Origin",
                                 "Access-Control-Request-Method",
-                                "Access-Control-Request-Headers"));
+                                "Access-Control-Request-Headers",
+                                "X-Organization-ID"));
 
                 // Headers exposÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©s au frontend
                 configuration.setExposedHeaders(Arrays.asList(

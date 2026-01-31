@@ -112,6 +112,7 @@ export interface Document {
   status: DocumentStatus;
   currentVersion?: number; // Added for versioning support
   version?: number; // Alias often used
+  organizationId?: number;
 }
 
 export interface DocumentVersion {

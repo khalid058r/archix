@@ -10,20 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @RestController
 @RequestMapping("/api/departments")
 @RequiredArgsConstructor
@@ -32,8 +18,9 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @GetMapping
-    public ResponseEntity<List<DepartmentDto>> getAllDepartments() {
-        return ResponseEntity.ok(departmentService.getAllDepartments());
+    public ResponseEntity<List<DepartmentDto>> getAllDepartments(
+            @RequestHeader("X-Organization-ID") Long organizationId) {
+        return ResponseEntity.ok(departmentService.getAllDepartments(organizationId));
     }
 
     @GetMapping("/{id}")
@@ -66,13 +53,9 @@ public class DepartmentController {
     public ResponseEntity<List<DepartmentDto>> getDepartmentsByOrganization(@PathVariable Long organizationId) {
         return ResponseEntity.ok(departmentService.getDepartmentsByOrganization(organizationId));
     }
+
+    @GetMapping("/{id}/stats")
+    public ResponseEntity<DepartmentStatsDto> getDepartmentStats(@PathVariable Long id) {
+        return ResponseEntity.ok(departmentService.getDepartmentStats(id));
+    }
 }
-
-
-
-
-
-
-
-
-

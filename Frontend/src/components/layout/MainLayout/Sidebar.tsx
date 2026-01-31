@@ -57,12 +57,13 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         isAdmin && { section: 'Administration' },
         isAdmin && { icon: Users, label: 'Utilisateurs', to: '/admin/users' },
         isAdmin && { icon: Building2, label: 'Départements', to: '/admin/departments' },
+        isAdmin && { icon: Users, label: 'Équipes', to: '/teams' },
         isAdmin && { icon: FileSearch, label: 'Audit Logs', to: '/admin/audit' },
         isAdmin && { icon: Settings, label: 'Paramètres', to: '/admin/settings' },
 
         // Super Admin
         isSuperAdmin && { section: 'Système' },
-        isSuperAdmin && { icon: Globe, label: 'Organisations', to: '/super-admin/organizations' },
+        isSuperAdmin && { icon: Globe, label: 'Organisations', to: '/admin/organizations' },
         isSuperAdmin && { icon: Server, label: 'Système', to: '/super-admin/settings' },
 
         // Guest

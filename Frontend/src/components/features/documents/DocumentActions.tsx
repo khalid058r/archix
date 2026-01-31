@@ -13,36 +13,75 @@ import type { Document } from '../../../types/document.types';
 import { Button } from '../../ui/Button/Button';
 import { useNavigate } from 'react-router-dom';
 
+import {
+    useSubmitDocumentMutation,
+    useStartReviewMutation,
+    useApproveDocumentMutation,
+    useRejectDocumentMutation,
+    useDeleteDocumentMutation
+} from '../../../api/endpoints/documentsApi';
+import { Loader2 } from 'lucide-react';
+
 interface DocumentActionsProps {
     document: Document;
 }
 
 export const DocumentActions = ({ document }: DocumentActionsProps) => {
-    const { user, can } = usePermissions();
+    const { user, can, isAdmin, isSuperAdmin } = usePermissions();
     const navigate = useNavigate();
 
-    // Safety check for user ID (though permissions usually handle it)
-    const isOwner = user ? document.createdBy?.id === user.id : false;
+    const [submit, { isLoading: isSubmitting }] = useSubmitDocumentMutation();
+    const [startReview, { isLoading: isStartingReview }] = useStartReviewMutation();
+    const [approve, { isLoading: isApproving }] = useApproveDocumentMutation();
+    const [reject, { isLoading: isRejecting }] = useRejectDocumentMutation();
+    const [deleteDoc, { isLoading: isDeleting }] = useDeleteDocumentMutation();
 
-    // We can define actions configuration or just render conditionally inline
-    // Inline is often clearer for React components unless list is huge.
+    // Super Admin & Admin have owner-like privileges
+    const hasOwnerPrivileges = isAdmin || isSuperAdmin || (user ? document.createdBy?.id === user.id : false);
 
-    const handleAction = (e: React.MouseEvent, action: string) => {
+    const handleAction = async (e: React.MouseEvent, action: string) => {
         e.stopPropagation();
-        // Implement action logic handlers here
-        console.log(`Action ${action} on document ${document.id}`);
-
-        switch (action) {
-            case 'view':
-                navigate(`/documents/${document.id}`);
-                break;
-            // Add other cases as implementation proceeds
+        try {
+            switch (action) {
+                case 'view':
+                    navigate(`/documents/${document.id}`);
+                    break;
+                case 'submit':
+                    await submit(document.id).unwrap();
+                    break;
+                case 'start-review':
+                    await startReview(document.id).unwrap();
+                    break;
+                case 'approve':
+                    await approve(document.id).unwrap();
+                    break;
+                case 'reject':
+                    // TODO: Prompt for reason
+                    await reject({ id: document.id, reason: 'Rejected by user' }).unwrap();
+                    break;
+                case 'delete':
+                    if (window.confirm('Êtes-vous sûr de vouloir supprimer ce document ?')) {
+                        await deleteDoc(document.id).unwrap();
+                    }
+                    break;
+                default:
+                    console.warn(`Unknown action: ${action}`);
+            }
+        } catch (err) {
+            console.error(`Failed to perform action ${action}`, err);
+            alert(`Erreur lors de l'action ${action}`);
         }
     };
 
+    const isLoading = isSubmitting || isStartingReview || isApproving || isRejecting || isDeleting;
+
+    if (isLoading) {
+        return <Loader2 className="animate-spin text-primary" size={16} />;
+    }
+
     return (
         <div className="flex items-center justify-end gap-1">
-            {/* View - Always visible if they see the list? usually yes */}
+            {/* View - Always visible */}
             <Button
                 variant="ghost"
                 size="sm"
@@ -68,24 +107,54 @@ export const DocumentActions = ({ document }: DocumentActionsProps) => {
             )}
 
             {/* Submit (Owner + Draft) */}
-            {isOwner && document.status === 'DRAFT' && (
-                <Button variant="ghost" size="sm" className="p-2" title="Soumettre">
+            {hasOwnerPrivileges && (document.status === 'DRAFT' || document.status === 'REJECTED') && (
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-2 text-primary hover:bg-primary/10"
+                    title="Soumettre pour revue"
+                    onClick={(e) => handleAction(e, 'submit')}
+                >
                     <Send size={16} />
                 </Button>
             )}
 
-            {/* Validate/Reject (Manager + Pending) */}
-            {can('validate', 'document', document) &&
-                (document.status === 'PENDING_REVIEW' || document.status === 'IN_REVIEW') && (
-                    <>
-                        <Button variant="ghost" size="sm" className="p-2 text-success hover:text-success hover:bg-success/10" title="Valider">
-                            <CheckCircle size={16} />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="p-2 text-error hover:text-error hover:bg-error/10" title="Rejeter">
-                            <XCircle size={16} />
-                        </Button>
-                    </>
-                )}
+            {/* Start Review (Pending) */}
+            {can('validate', 'document', document) && document.status === 'PENDING_REVIEW' && (
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-2 text-primary hover:bg-primary/10"
+                    title="Commencer la revue"
+                    onClick={(e) => handleAction(e, 'start-review')}
+                >
+                    <Eye size={16} />
+                </Button>
+            )}
+
+            {/* Validate/Reject (Reviewer + In Review) */}
+            {can('validate', 'document', document) && document.status === 'IN_REVIEW' && (
+                <>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="p-2 text-success hover:text-success hover:bg-success/10"
+                        title="Approuver"
+                        onClick={(e) => handleAction(e, 'approve')}
+                    >
+                        <CheckCircle size={16} />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="p-2 text-error hover:text-error hover:bg-error/10"
+                        title="Rejeter"
+                        onClick={(e) => handleAction(e, 'reject')}
+                    >
+                        <XCircle size={16} />
+                    </Button>
+                </>
+            )}
 
             {/* Share */}
             {can('share', 'document', document) && (
@@ -96,7 +165,13 @@ export const DocumentActions = ({ document }: DocumentActionsProps) => {
 
             {/* Delete */}
             {can('delete', 'document', document) && (
-                <Button variant="ghost" size="sm" className="p-2 text-error hover:text-error hover:bg-error/10" title="Supprimer">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-2 text-error hover:text-error hover:bg-error/10"
+                    title="Supprimer"
+                    onClick={(e) => handleAction(e, 'delete')}
+                >
                     <Trash2 size={16} />
                 </Button>
             )}

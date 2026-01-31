@@ -12,6 +12,7 @@ import archix_base.identity.repo.UserRepo;
 import archix_base.organization.entity.Department;
 import archix_base.organization.entity.Organization;
 import archix_base.organization.repo.DepartmentRepo;
+import archix_base.organization.repo.OrganizationRepo;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -130,6 +131,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final UserRepo userRepo;
+    private final OrganizationRepo organizationRepo;
     private final DepartmentRepo departmentRepo;
     private final PermissionRepo permissionRepo;
     private final JwtService jwtService;
@@ -164,11 +166,30 @@ public class AuthService {
         newUser.setIsActive(true);
 
         // Associer le dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©partement si fourni
+        // Associer le dÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©partement
         if (request.getDepartmentId() != null) {
             newUser.setDepartment(
                     departmentRepo.findById(request.getDepartmentId())
                             .orElseThrow(() -> new ResourceNotFoundException(
                                     "Department not found with id " + request.getDepartmentId())));
+        } else {
+            // Create Personal Organization
+            Organization org = new Organization();
+            String orgName = (request.getFirstName() != null ? request.getFirstName() : request.getEmail())
+                    + "'s Organization";
+            org.setName(orgName);
+            org.setDescription("Personal organization for " + request.getEmail());
+            org.setCreatedAt(LocalDateTime.now());
+            org = organizationRepo.save(org);
+
+            Department dept = new Department();
+            dept.setName("Main");
+            dept.setDescription("Default department");
+            dept.setCreatedAt(LocalDateTime.now());
+            dept.setOrganization(org);
+            dept = departmentRepo.save(dept);
+
+            newUser.setDepartment(dept);
         }
 
         // Associer les permissions si fournies
@@ -178,9 +199,9 @@ public class AuthService {
                             .map(id -> permissionRepo.findById(id)
                                     .orElseThrow(() -> new ResourceNotFoundException(
                                             "Permission not found with id " + id)))
-                            .toList());
+                            .collect(java.util.stream.Collectors.toSet()));
         } else {
-            newUser.setPermissions(List.of());
+            newUser.setPermissions(java.util.Collections.emptySet());
         }
 
         // Sauvegarder l'utilisateur
@@ -200,6 +221,7 @@ public class AuthService {
                 .build();
     }
 
+    @Transactional
     public AuthResponse login(LoginDto request) {
         try {
             authenticationManager.authenticate(

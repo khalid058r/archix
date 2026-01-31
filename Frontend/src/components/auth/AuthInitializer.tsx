@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetMeQuery } from '../../api/endpoints/authApi';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setUser, logout } from '../../store/slices/authSlice';
+import { setUser, logout, switchOrganization, setOrganizations } from '../../store/slices/authSlice';
+import { organizationApi } from '../../api/endpoints/organizationApi';
 import { Loader2 } from 'lucide-react';
 
 export const AuthInitializer = ({ children }: { children: React.ReactNode }) => {
@@ -24,7 +25,53 @@ export const AuthInitializer = ({ children }: { children: React.ReactNode }) => 
         }
     }, [userData, isError, dispatch]);
 
-    if (isLoading && token && !user) {
+    // Track if we have finished attempting to restore the session
+    const [restorationComplete, setRestorationComplete] = useState(false);
+
+    // Added: Auto-select organization if missing
+    // This fixes the 400 Bad Request (Missing Org ID) error after page reload
+    const currentOrg = useAppSelector((state) => state.auth.currentOrganization);
+    const organizations = useAppSelector((state) => state.auth.organizations);
+
+    useEffect(() => {
+        const restoreSession = async () => {
+            if (!token || currentOrg) {
+                setRestorationComplete(true);
+                return;
+            }
+
+            try {
+                // 1. Ensure organizations are loaded
+                let availableOrgs = organizations;
+                if (!availableOrgs || availableOrgs.length === 0) {
+                    try {
+                        const fetchedOrgs = await organizationApi.getAll();
+                        dispatch(setOrganizations(fetchedOrgs));
+                        availableOrgs = fetchedOrgs; // Use the fresh list immediately
+                    } catch (e) {
+                        console.error("Failed to restore organizations", e);
+                    }
+                }
+
+                // 2. Ensure current organization is selected
+                if (!currentOrg && availableOrgs && availableOrgs.length > 0) {
+                    console.log('Auto-restoring default organization:', availableOrgs[0].name);
+                    dispatch(switchOrganization(availableOrgs[0].id));
+                }
+            } finally {
+                setRestorationComplete(true);
+            }
+        };
+
+        // Only trigger if we haven't completed restoration yet
+        if (!restorationComplete) {
+            restoreSession();
+        }
+    }, [token, currentOrg, organizations, dispatch, restorationComplete]);
+
+    // Block rendering until user AND organization are ready (or until restoration attempt is done)
+    // This prevents the infinite spinner: we only wait while we are actively trying to restore
+    if ((isLoading && token && !user) || (token && !currentOrg && !restorationComplete)) {
         return (
             <div className="h-screen w-screen flex items-center justify-center bg-gray-50">
                 <div className="flex flex-col items-center gap-4">

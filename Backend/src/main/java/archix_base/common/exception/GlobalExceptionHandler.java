@@ -79,6 +79,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    @ExceptionHandler(jakarta.persistence.EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleJpaEntityNotFoundException(
+            jakarta.persistence.EntityNotFoundException e) {
+        ErrorResponse error = new ErrorResponse("JPA Entity Not Found: " + e.getMessage(), Instant.now());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
     /**
      * Handler
      * gÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©rique
@@ -86,6 +93,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception e) {
+        System.err.println("UNHANDLED EXCEPTION CAUGHT IN GLOBAL HANDLER:");
+        e.printStackTrace();
         ErrorResponse error = new ErrorResponse(
                 "An unexpected error occurred: " + e.getMessage(),
                 Instant.now());

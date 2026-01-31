@@ -1,0 +1,89 @@
+﻿[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.example:archix-base >-----------------------
+[INFO] Building archix-base 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ archix-base ---
+[INFO] Deleting C:\Users\khalid\Desktop\archix\Backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ archix-base ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ archix-base ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 95 source files with javac [debug parameters release 21] to target\classes
+[INFO] Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/dto/AuthResponse.java:[12,20] @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[188,38] incompatible types: invalid method reference
+    incompatible types: archix_base.document.entity.Document cannot be converted to archix_base.document.entity.DocumentVersion
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/service/DocumentService.java:[245,49] method findAllByOrganizationId in interface archix_base.document.repo.DocumentRepo cannot be applied to given types;
+  required: java.lang.Long,org.springframework.data.domain.Pageable
+  found:    java.lang.Long
+  reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/service/DocumentService.java:[261,16] no suitable constructor found for DocumentStatsDTO(long,long,long,long,long,long,long)
+    constructor archix_base.document.dto.DocumentStatsDTO.DocumentStatsDTO() is not applicable
+      (actual and formal argument lists differ in length)
+    constructor archix_base.document.dto.DocumentStatsDTO.DocumentStatsDTO(long,long,long,long) is not applicable
+      (actual and formal argument lists differ in length)
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/service/DocumentService.java:[323,12] cannot find symbol
+  symbol:   method setRejectionReason(java.lang.String)
+  location: variable doc of type archix_base.document.entity.Document
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/UserService.java:[90,13] cannot find symbol
+  symbol:   method setDepartment(archix_base.organization.entity.Department)
+  location: variable user of type archix_base.identity.entity.User
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/service/DepartmentService.java:[106,23] cannot find symbol
+  symbol:   method getUsers()
+  location: variable department of type archix_base.organization.entity.Department
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/service/DepartmentService.java:[106,57] cannot find symbol
+  symbol:   method getUsers()
+  location: variable department of type archix_base.organization.entity.Department
+[INFO] 7 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  25.976 s
+[INFO] Finished at: 2026-01-30T03:15:14+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.0:compile (default-compile) on project archix-base: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/controller/DocumentController.java:[188,38] incompatible types: invalid method reference
+[ERROR]     incompatible types: archix_base.document.entity.Document cannot be converted to archix_base.document.entity.DocumentVersion
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/service/DocumentService.java:[245,49] method findAllByOrganizationId in interface archix_base.document.repo.DocumentRepo cannot be applied to given types;
+[ERROR]   required: java.lang.Long,org.springframework.data.domain.Pageable
+[ERROR]   found:    java.lang.Long
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/service/DocumentService.java:[261,16] no suitable constructor found for DocumentStatsDTO(long,long,long,long,long,long,long)
+[ERROR]     constructor archix_base.document.dto.DocumentStatsDTO.DocumentStatsDTO() is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor archix_base.document.dto.DocumentStatsDTO.DocumentStatsDTO(long,long,long,long) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/document/service/DocumentService.java:[323,12] cannot find symbol
+[ERROR]   symbol:   method setRejectionReason(java.lang.String)
+[ERROR]   location: variable doc of type archix_base.document.entity.Document
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/identity/service/UserService.java:[90,13] cannot find symbol
+[ERROR]   symbol:   method setDepartment(archix_base.organization.entity.Department)
+[ERROR]   location: variable user of type archix_base.identity.entity.User
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/service/DepartmentService.java:[106,23] cannot find symbol
+[ERROR]   symbol:   method getUsers()
+[ERROR]   location: variable department of type archix_base.organization.entity.Department
+[ERROR] /C:/Users/khalid/Desktop/archix/Backend/src/main/java/archix_base/organization/service/DepartmentService.java:[106,57] cannot find symbol
+[ERROR]   symbol:   method getUsers()
+[ERROR]   location: variable department of type archix_base.organization.entity.Department
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

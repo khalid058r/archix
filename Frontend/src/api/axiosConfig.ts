@@ -12,8 +12,33 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
+        let organizationId = null;
+
+        // Correctly parse the Organization object stored by Redux
+        const currentOrgStr = localStorage.getItem('currentOrganization');
+        if (currentOrgStr) {
+            try {
+                const org = JSON.parse(currentOrgStr);
+                if (org && org.id) {
+                    organizationId = org.id;
+                }
+            } catch (e) {
+                console.error("Failed to parse currentOrganization from storage", e);
+            }
+        }
+
+        // DEBUG: Log outgoing request details
+        console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, {
+            headers: config.headers,
+            orgIdFromStorage: organizationId
+        });
+
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        if (organizationId) {
+            config.headers['X-Organization-ID'] = organizationId;
         }
         return config;
     },

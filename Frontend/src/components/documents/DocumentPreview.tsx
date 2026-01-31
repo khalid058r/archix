@@ -31,7 +31,7 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
             setLoading(true);
             try {
                 const token = localStorage.getItem('token'); // Adjust key if needed (e.g. 'auth_token')
-                const response = await fetch(documentService.getPreviewUrl(document.id), {
+                const response = await fetch(documentService.getPreviewUrl(document.id, document.organizationId), {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -80,7 +80,7 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
                 </div>
                 <Button
                     variant="primary"
-                    onClick={() => window.open(documentService.getDownloadUrl(document.id), '_blank')}
+                    onClick={() => window.open(documentService.getDownloadUrl(document.id, document.organizationId), '_blank')}
                 >
                     <Download size={16} className="mr-2" /> Télécharger / Ouvrir
                 </Button>

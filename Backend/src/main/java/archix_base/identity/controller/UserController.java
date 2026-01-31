@@ -14,20 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
@@ -37,8 +23,15 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserDto>> getAllUsers(@RequestHeader("X-Organization-ID") Long organizationId) {
+        return ResponseEntity.ok(userService.getAllUsers(organizationId));
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDto> createUser(
+            @RequestBody archix_base.identity.dto.RegisterDto registerDto,
+            @RequestHeader("X-Organization-ID") Long organizationId) {
+        return ResponseEntity.ok(userService.createUser(registerDto, organizationId));
     }
 
     @GetMapping("/{id}")
@@ -57,10 +50,10 @@ public class UserController {
     }
 
     @PutMapping("/change-permissions")
-    public ResponseEntity<UserDto> changeUserPermissions(@RequestBody ChangeUserPermissionsDto changeUserPermissionsDto) {
+    public ResponseEntity<UserDto> changeUserPermissions(
+            @RequestBody ChangeUserPermissionsDto changeUserPermissionsDto) {
         return ResponseEntity.ok(userService.changeUserPermissions(changeUserPermissionsDto));
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
@@ -79,14 +72,3 @@ public class UserController {
         return ResponseEntity.ok(userService.getUsersByDepartment(id));
     }
 }
-
-
-
-
-
-
-
-
-
-
-

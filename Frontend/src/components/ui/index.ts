@@ -14,3 +14,4 @@ export { FileUploader } from './FileUploader';
 
 export { Spinner, LoadingOverlay, LoadingPlaceholder } from './Spinner';
 export { Select } from './Select';
+export { Modal } from './Modal/Modal';

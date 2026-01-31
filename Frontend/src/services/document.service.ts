@@ -102,9 +102,13 @@ export const documentService = {
     },
 
     // Get document preview URL
-    getPreviewUrl(id: number): string {
+    getPreviewUrl(id: number, organizationId?: number): string {
         const token = localStorage.getItem('token');
-        return `http://localhost:8081/api/documents/${id}/content?token=${token}`;
+        let url = `http://localhost:8081/api/documents/${id}/content?token=${token}`;
+        if (organizationId) {
+            url += `&organizationId=${organizationId}`;
+        }
+        return url;
     },
 
     // Get document statistics
@@ -144,8 +148,16 @@ export const documentService = {
         return response.data;
     },
 
-    getDownloadUrl(id: number): string {
-        return `http://localhost:8081/api/documents/${id}/content?download=true`;
+    getDownloadUrl(id: number, organizationId?: number): string {
+        let url = `http://localhost:8081/api/documents/${id}/content?download=true`;
+        if (organizationId) {
+            url += `&organizationId=${organizationId}`;
+        }
+        const token = localStorage.getItem('token');
+        if (token) {
+            url += `&token=${token}`;
+        }
+        return url;
     },
 
     async getVersions(id: number): Promise<import('../types').DocumentVersion[]> {

@@ -181,7 +181,7 @@ const DocumentDetailPage = () => {
                     <Button
                         variant="ghost"
                         className="shadow-sm hover:shadow-md transition-all flex items-center gap-2 border border-gray-200"
-                        onClick={() => window.open(documentService.getDownloadUrl(document.id), '_blank')}
+                        onClick={() => window.open(documentService.getDownloadUrl(document.id, document.organizationId), '_blank')}
                     >
                         <Download size={18} /> Télécharger
                     </Button>
