@@ -20,14 +20,17 @@ export interface Team {
 export const teamApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getTeams: builder.query<Team[], void>({
-            query: () => '/teams',
+            query: () => ({
+                url: '/teams',
+                method: 'GET',
+            }),
             providesTags: ['Team'],
         }),
         createTeam: builder.mutation<Team, { name: string; description: string }>({
-            query: (body) => ({
+            query: (data) => ({
                 url: '/teams',
                 method: 'POST',
-                body,
+                data,
             }),
             invalidatesTags: ['Team'],
         }),
@@ -42,7 +45,7 @@ export const teamApi = baseApi.injectEndpoints({
             query: ({ teamId, userId, role }) => ({
                 url: `/teams/${teamId}/members`,
                 method: 'POST',
-                body: { userId, role },
+                data: { userId, role },
             }),
             invalidatesTags: ['Team'],
         }),
@@ -57,7 +60,7 @@ export const teamApi = baseApi.injectEndpoints({
             query: ({ teamId, userId, role }) => ({
                 url: `/teams/${teamId}/members/${userId}/role`,
                 method: 'PUT',
-                body: { role },
+                data: { role },
             }),
             invalidatesTags: ['Team'],
         }),

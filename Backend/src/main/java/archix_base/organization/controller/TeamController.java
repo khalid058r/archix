@@ -1,8 +1,6 @@
 package archix_base.organization.controller;
 
-import archix_base.organization.dto.MemberDto;
 import archix_base.organization.dto.TeamDto;
-import archix_base.organization.entity.Team;
 import archix_base.organization.entity.TeamRole;
 import archix_base.organization.service.TeamService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/teams")
@@ -23,9 +20,7 @@ public class TeamController {
 
     @GetMapping
     public ResponseEntity<List<TeamDto>> getTeams(@RequestHeader("X-Organization-ID") Long organizationId) {
-        List<Team> teams = teamService.getTeamsByOrganization(organizationId);
-        List<TeamDto> dtos = teams.stream().map(this::toDto).collect(Collectors.toList());
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(teamService.getTeamsByOrganization(organizationId));
     }
 
     @PostMapping
@@ -36,8 +31,8 @@ public class TeamController {
         String name = payload.get("name");
         String description = payload.get("description");
 
-        Team team = teamService.createTeam(organizationId, name, description);
-        return ResponseEntity.ok(toDto(team));
+        TeamDto dto = teamService.createTeam(organizationId, name, description);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping("/{id}/members")
@@ -70,26 +65,5 @@ public class TeamController {
     public ResponseEntity<Void> deleteTeam(@PathVariable Long id) {
         teamService.deleteTeam(id);
         return ResponseEntity.ok().build();
-    }
-
-    private TeamDto toDto(Team team) {
-        List<MemberDto> members = team.getMembers().stream()
-                .map(member -> MemberDto.builder()
-                        .id(member.getUser().getId())
-                        .fullName(member.getUser().getFullName())
-                        .email(member.getUser().getEmail())
-                        .avatarUrl(member.getUser().getAvatarUrl())
-                        .role(member.getRole().name())
-                        .build())
-                .collect(Collectors.toList());
-
-        return TeamDto.builder()
-                .id(team.getId())
-                .name(team.getName())
-                .description(team.getDescription())
-                .organizationId(team.getOrganization().getId())
-                .members(members)
-                .createdAt(team.getCreatedAt())
-                .build();
     }
 }

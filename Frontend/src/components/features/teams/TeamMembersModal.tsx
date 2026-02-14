@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { X, UserPlus, Search, Trash2, Shield } from 'lucide-react';
+import { UserPlus, Search, Trash2 } from 'lucide-react';
 import { Modal } from '../../ui/Modal/Modal';
 import { Button } from '../../ui/Button/Button';
-import { useAddMemberMutation, useRemoveMemberMutation, useUpdateMemberRoleMutation, Team } from '../../../api/endpoints/teamApi';
+import { useAddMemberMutation, useRemoveMemberMutation, useUpdateMemberRoleMutation } from '../../../api/endpoints/teamApi';
+import type { Team } from '../../../api/endpoints/teamApi';
 import { userApi } from '../../../api/endpoints/userApi';
 import type { User } from '../../../types/user.types';
 
@@ -18,7 +19,7 @@ export const TeamMembersModal = ({ isOpen, onClose, team }: TeamMembersModalProp
     const [updateRole] = useUpdateMemberRoleMutation();
 
     const [users, setUsers] = useState<User[]>([]);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery] = useState('');  // setSearchQuery can be added for search functionality
     const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
     const [selectedRole, setSelectedRole] = useState<string>('MEMBER');
 
@@ -152,13 +153,14 @@ export const TeamMembersModal = ({ isOpen, onClose, team }: TeamMembersModalProp
                                             <option value="VIEWER">Lecteur</option>
                                         </select>
                                     )}
-                                <button
-                                    onClick={() => handleRemoveMember(member.id)}
-                                    className="text-gray-400 hover:text-red-500 transition-colors p-1"
-                                    title="Retirer"
-                                >
-                                    <Trash2 size={16} />
-                                </button>
+                                    <button
+                                        onClick={() => handleRemoveMember(member.id)}
+                                        className="text-gray-400 hover:text-red-500 transition-colors p-1"
+                                        title="Retirer"
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
                             </div>
                         ))
                     )}

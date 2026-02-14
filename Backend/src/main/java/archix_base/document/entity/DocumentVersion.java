@@ -9,6 +9,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Document version entity for version history.
+ * Stores path to file in MinIO storage (not content directly).
+ */
 @Entity
 @Getter
 @Setter
@@ -37,8 +41,16 @@ public class DocumentVersion {
     @Column(nullable = false)
     private Long fileSize;
 
-    @Lob
-    private byte[] content;
+    /**
+     * Path to file in MinIO storage.
+     */
+    @Column(nullable = false)
+    private String storagePath;
+    
+    /**
+     * SHA-256 checksum for integrity verification.
+     */
+    private String checksum;
 
     @Column(nullable = false)
     private LocalDateTime archivedAt;
@@ -48,5 +60,6 @@ public class DocumentVersion {
     private User archivedBy;
 
     // Optional: comments for the version
+    @Column(length = 1000)
     private String versionComment;
 }

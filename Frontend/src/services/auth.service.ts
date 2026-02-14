@@ -8,6 +8,11 @@ import type {
     MessageResponse
 } from '../types';
 
+interface TokenVerificationResponse {
+    valid: boolean;
+    message: string;
+}
+
 export const authService = {
     // Login user
     async login(credentials: LoginRequest): Promise<AuthResponse> {
@@ -30,21 +35,33 @@ export const authService = {
     },
 
     // Verify token validity
-    async verifyToken(token: string): Promise<{ valid: boolean; message: string }> {
-        const response = await api.post<{ valid: boolean; message: string }>('/auth/verify', { token });
-        return response.data;
+    async verifyToken(token: string): Promise<TokenVerificationResponse> {
+        try {
+            const response = await api.post<TokenVerificationResponse>('/auth/verify', { token });
+            return response.data;
+        } catch (error) {
+            // If verification fails, return invalid
+            return { valid: false, message: 'Token verification failed' };
+        }
     },
 
     // Refresh access token
     async refreshToken(token: string): Promise<AuthResponse> {
         const response = await api.post<AuthResponse>('/auth/refresh', { token });
+        if (response.data.token) {
+            localStorage.setItem('token', response.data.token);
+        }
         return response.data;
     },
 
     // Logout user
     async logout(): Promise<MessageResponse> {
-        const response = await api.post<MessageResponse>('/auth/logout');
-        return response.data;
+        try {
+            const response = await api.post<MessageResponse>('/auth/logout');
+            return response.data;
+        } finally {
+            this.clearAuthData();
+        }
     },
 
     // Change password
@@ -55,9 +72,36 @@ export const authService = {
 
     // Store auth data in localStorage
     storeAuthData(authResponse: AuthResponse): void {
-        localStorage.setItem('token', authResponse.token);
-        localStorage.setItem('refreshToken', authResponse.refreshToken);
-        localStorage.setItem('user', JSON.stringify(authResponse.user));
+        if (authResponse.token) {
+            localStorage.setItem('token', authResponse.token);
+        }
+        if (authResponse.refreshToken) {
+            localStorage.setItem('refreshToken', authResponse.refreshToken);
+        }
+        if (authResponse.user) {
+            localStorage.setItem('user', JSON.stringify(authResponse.user));
+            // Store organization from user's department if available
+            // Check nested organization object first (backend returns department.organization.id)
+            const user = authResponse.user as Record<string, unknown>;
+            const dept = user.department as Record<string, unknown> | undefined;
+            const org = dept?.organization as Record<string, unknown> | undefined;
+            
+            if (org?.id) {
+                localStorage.setItem('currentOrganization', JSON.stringify({
+                    id: org.id
+                }));
+            } else if (dept?.organizationId) {
+                // Fallback to flat organizationId if available
+                localStorage.setItem('currentOrganization', JSON.stringify({
+                    id: dept.organizationId
+                }));
+            } else if (user.organizationId) {
+                // Fallback to user's direct organizationId
+                localStorage.setItem('currentOrganization', JSON.stringify({
+                    id: user.organizationId
+                }));
+            }
+        }
     },
 
     // Clear auth data from localStorage
@@ -65,6 +109,7 @@ export const authService = {
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
+        localStorage.removeItem('currentOrganization');
     },
 
     // Get stored user
@@ -96,6 +141,25 @@ export const authService = {
 
     clearTokens(): void {
         this.clearAuthData();
+    },
+
+    // Get current organization ID
+    getCurrentOrganizationId(): number | null {
+        const orgStr = localStorage.getItem('currentOrganization');
+        if (orgStr) {
+            try {
+                const org = JSON.parse(orgStr);
+                return org.id || null;
+            } catch {
+                return null;
+            }
+        }
+        return null;
+    },
+
+    // Set current organization
+    setCurrentOrganization(organizationId: number): void {
+        localStorage.setItem('currentOrganization', JSON.stringify({ id: organizationId }));
     }
 };
 

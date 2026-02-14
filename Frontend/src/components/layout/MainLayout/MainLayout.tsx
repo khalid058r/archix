@@ -1,15 +1,33 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Search, Bell, Menu } from 'lucide-react'; // Added Menu icon import
 
-import { useAppSelector } from '../../../store/hooks';
-import { selectCurrentUser } from '../../../store/slices/authSlice';
+import { useAppSelector, useAppDispatch } from '../../../store/hooks';
+import { selectCurrentUser, selectCurrentOrganization, setCredentials } from '../../../store/slices/authSlice';
+import { organizationService } from '../../../services/organization.service';
 
 export const MainLayout = () => {
     const user = useAppSelector(selectCurrentUser);
+    const currentOrganization = useAppSelector(selectCurrentOrganization);
+    const dispatch = useAppDispatch();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    // Auto-fetch organizations if authenticated but no org selected
+    useEffect(() => {
+        if (user && !currentOrganization) {
+            const token = localStorage.getItem('token');
+            if (token) {
+                organizationService.getAll().then(orgs => {
+                    if (orgs.length > 0) {
+                        const orgSummaries = orgs.map(o => ({ id: o.id, name: o.name, slug: o.slug, description: o.description, logoUrl: o.logoUrl }));
+                        dispatch(setCredentials({ user, accessToken: token, organizations: orgSummaries }));
+                    }
+                }).catch(err => console.warn('Failed to auto-fetch organizations:', err));
+            }
+        }
+    }, [user, currentOrganization, dispatch]);
 
     // Initial for avatar
     const initial = user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'U';

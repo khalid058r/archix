@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import { Plus, Users, Trash2, Edit } from 'lucide-react';
+import { Plus, Users, Trash2 } from 'lucide-react';
 import { Button } from '../../components/ui/Button/Button';
 import { Modal } from '../../components/ui/Modal/Modal';
 import { useGetTeamsQuery, useCreateTeamMutation, useDeleteTeamMutation } from '../../api/endpoints/teamApi';
+import type { Team } from '../../api/endpoints/teamApi';
+import { TeamMembersModal } from '../../components/features/teams/TeamMembersModal';
 
-const TeamsPage = () => {
+export const TeamsPage = () => {
     const { data: teams, isLoading } = useGetTeamsQuery();
     const [createTeam] = useCreateTeamMutation();
     const [deleteTeam] = useDeleteTeamMutation();
 
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isMembersModalOpen, setIsMembersModalOpen] = useState(false);
+    const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
     const [newTeam, setNewTeam] = useState({ name: '', description: '' });
 
     const handleCreate = async () => {
@@ -73,7 +77,10 @@ const TeamsPage = () => {
                             </div>
 
                             <div className="mt-4">
-                                <Button variant="outline" className="w-full text-xs" onClick={() => alert("Gestion des membres à venir")}>
+                                <Button variant="outline" className="w-full text-xs" onClick={() => {
+                                    setSelectedTeam(team);
+                                    setIsMembersModalOpen(true);
+                                }}>
                                     Gérer les membres
                                 </Button>
                             </div>
@@ -111,6 +118,15 @@ const TeamsPage = () => {
                     </div>
                 </div>
             </Modal>
+
+            <TeamMembersModal
+                isOpen={isMembersModalOpen}
+                onClose={() => {
+                    setIsMembersModalOpen(false);
+                    setSelectedTeam(null);
+                }}
+                team={selectedTeam}
+            />
         </div>
     );
 };

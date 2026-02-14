@@ -102,4 +102,20 @@ public interface DocumentRepo extends JpaRepository<Document, Long> {
         @Query("SELECT COUNT(d) FROM Document d WHERE d.createdBy.department.id = :departmentId AND d.status = :status")
         long countByDepartmentIdAndStatus(@Param("departmentId") Long departmentId,
                         @Param("status") archix_base.document.entity.DocumentStatus status);
+
+        // Soft delete queries
+        Page<Document> findAllByOrganizationIdAndIsDeletedFalse(Long organizationId, Pageable pageable);
+
+        Page<Document> findAllByStatusAndOrganizationIdAndIsDeletedFalse(
+                        archix_base.document.entity.DocumentStatus status, Long organizationId, Pageable pageable);
+
+        Page<Document> findAllByOrganizationIdAndIsDeletedTrue(Long organizationId, Pageable pageable);
+
+        long countByOrganizationIdAndIsDeletedFalse(Long organizationId);
+
+        @Query("SELECT SUM(d.fileSize) FROM Document d WHERE d.organization.id = :orgId AND d.isDeleted = false")
+        Long sumFileSizeByOrganizationId(@Param("orgId") Long organizationId);
+
+        @Query("SELECT d.mimeType, COUNT(d) FROM Document d WHERE d.organization.id = :orgId AND d.isDeleted = false GROUP BY d.mimeType")
+        List<Object[]> countByMimeTypeAndOrganizationId(@Param("orgId") Long organizationId);
 }

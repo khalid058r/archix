@@ -6,16 +6,6 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDateTime;
 import lombok.*;
 
-
-
-
-
-
-
-
-
-
-
 //package archix_base.organization.dto;
 
 //
@@ -38,9 +28,6 @@ import lombok.*;
 //    private OrganizationDto organization;
 //}
 
-
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,13 +45,17 @@ public class DepartmentDto {
     private LocalDateTime createdAt;
 
     private OrganizationDto organization;
+
+    // Hierarchy
+    private Long parentId;
+    private String parentName;
+    private Integer childrenCount;
+
+    // Manager
+    private Long managerId;
+    private String managerName;
+
+    // Storage
+    private Long storageQuotaBytes;
+    private Long storageUsedBytes;
 }
-
-
-
-
-
-
-
-
-

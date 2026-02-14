@@ -3,7 +3,9 @@ package archix_base.common.config;
 import archix_base.identity.security.JwtAuthenticationFilter;
 import archix_base.identity.service.UserDetailsServiceImp;
 import java.util.Arrays;
-import lombok.AllArgsConstructor;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,12 +25,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableMethodSecurity
 public class SecurityConfig {
 
         private final UserDetailsServiceImp userDetailsService;
         private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+        @Value("${cors.allowed-origins:http://localhost:5173,http://localhost:3000}")
+        private String corsAllowedOrigins;
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -46,7 +51,7 @@ public class SecurityConfig {
                                                                 "/v3/api-docs/**",
                                                                 "/v3/api-docs.yaml")
                                                 .permitAll()
-                                                .requestMatchers("/api/**").authenticated()
+                                                .requestMatchers("/api/**", "/resources/**").authenticated()
                                                 .anyRequest().permitAll())
                                 .userDetailsService(userDetailsService)
                                 .sessionManagement(session -> session
@@ -69,16 +74,9 @@ public class SecurityConfig {
         public CorsConfigurationSource corsConfigurationSource() {
                 CorsConfiguration configuration = new CorsConfiguration();
 
-                // --- CORRECTION ICI ---
-                // Ajout de configuration.setAllowedOrigins(Arrays.asList(...));
-                configuration.setAllowedOrigins(Arrays.asList(
-                                "http://localhost:3000", // React dev
-                                "http://localhost:5173", // Vite dev
-                                "http://localhost:5175", // Vite dev alternate
-                                "http://localhost:4200", // Angular dev
-                                "http://127.0.0.1:3000",
-                                "http://127.0.0.1:5173",
-                                "http://127.0.0.1:5175"));
+                // Read CORS origins from application.properties
+                configuration.setAllowedOrigins(
+                                Arrays.asList(corsAllowedOrigins.split(",")));
 
                 // MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©thodes HTTP
                 // autorisÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©es

@@ -1,0 +1,70 @@
+# ============================================
+# ARCHIX - Docker Ignore
+# ============================================
+# Files and directories to exclude from Docker build context
+
+# Git
+.git
+.gitignore
+.github
+
+# IDE
+.idea
+.vscode
+*.iml
+*.swp
+*.swo
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# Logs
+*.log
+logs/
+
+# Environment files (secrets)
+.env
+.env.local
+.env.*.local
+
+# Test files
+**/*.test.*
+**/*.spec.*
+**/test/
+**/tests/
+**/__tests__/
+
+# Build artifacts (Backend)
+Backend/target/
+**/target/
+
+# Build artifacts (Frontend)
+Frontend/node_modules/
+Frontend/dist/
+**/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Docker
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+Jenkinsfile

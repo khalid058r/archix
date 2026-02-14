@@ -43,7 +43,7 @@ export const WorkspaceSwitcher = () => {
                         </div>
                         <div className="flex flex-col items-start truncate">
                             <span className="text-sm font-medium text-white truncate w-full">{currentOrg.name}</span>
-                            <span className="text-xs text-white/50">{currentOrg.planType}</span>
+                            <span className="text-xs text-white/50">{(currentOrg as any).planType || 'Standard'}</span>
                         </div>
                     </div>
                     <ChevronRight size={16} className={cn("text-white/50 transition-transform", isOpen && "rotate-90")} />

@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Search, Bell, ChevronDown, Settings, LogOut, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { selectCurrentUser, logout as logoutAction } from '../../store/slices/authSlice';
 import './Header.css';
 
 interface HeaderProps {
@@ -9,7 +10,8 @@ interface HeaderProps {
 }
 
 export function Header({ onMenuToggle }: HeaderProps) {
-    const { user, logout } = useAuth();
+    const user = useAppSelector(selectCurrentUser);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -33,7 +35,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
     };
 
     const handleLogout = () => {
-        logout();
+        dispatch(logoutAction());
         navigate('/login');
     };
 

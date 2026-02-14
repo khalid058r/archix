@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { FileText, MoreVertical, Download, Loader2 } from 'lucide-react';
+import { FileText, Loader2 } from 'lucide-react';
 import { Card } from '../../ui/Card/Card';
 import { Badge } from '../../ui/Badge/Badge';
 import { Button } from '../../ui/Button/Button';
@@ -104,7 +104,7 @@ export const DocumentList = ({
                             <div className="flex items-center justify-between mt-auto">
                                 <Badge status={doc.status} />
                                 <span className="text-xs text-gray-400">
-                                    {new Date(doc.updatedAt).toLocaleDateString()}
+                                    {doc.updatedAt ? new Date(doc.updatedAt).toLocaleDateString() : '-'}
                                 </span>
                             </div>
                         </div>
@@ -152,7 +152,7 @@ export const DocumentList = ({
                                     <Badge status={doc.status} />
                                 </td>
                                 <td className="px-6 py-4 text-gray-600">
-                                    {new Date(doc.updatedAt).toLocaleDateString()}
+                                    {doc.updatedAt ? new Date(doc.updatedAt).toLocaleDateString() : '-'}
                                 </td>
                                 <td className="px-6 py-4 text-right" onClick={(e) => e.stopPropagation()}>
                                     <div className="flex items-center justify-end" onClick={(e) => e.stopPropagation()}>

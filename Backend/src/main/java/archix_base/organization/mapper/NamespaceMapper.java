@@ -17,14 +17,19 @@ public class NamespaceMapper {
         dto.setId(ns.getId());
         dto.setName(ns.getName());
         dto.setCreatedAt(ns.getCreatedAt());
-        dto.setCreatedById(ns.getCreatedBy() != null ? ns.getCreatedBy().getId() : null);
-        dto.setParentId(ns.getParent() != null ? ns.getParent().getId() : null);
+        
+        try {
+            dto.setCreatedById(ns.getCreatedBy() != null ? ns.getCreatedBy().getId() : null);
+        } catch (org.hibernate.LazyInitializationException e) {
+            dto.setCreatedById(null);
+        }
+        
+        try {
+            dto.setParentId(ns.getParent() != null ? ns.getParent().getId() : null);
+        } catch (org.hibernate.LazyInitializationException e) {
+            dto.setParentId(null);
+        }
 
-        // List<Long> childrenIds = ns.getChildren() != null ?
-        // ns.getChildren().stream()
-        // .map(Resource::getId)
-        // .collect(Collectors.toList())
-        // : null;
         dto.setChildrenIds(null);
 
         return dto;

@@ -5,19 +5,6 @@ import archix_base.organization.entity.Organization;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,12 +18,13 @@ public class CreateDepartmentDto {
     private String description;
 
     private Long organizationId;
+
+    // Hierarchy
+    private Long parentId;
+
+    // Manager
+    private Long managerId;
+
+    // Storage quota
+    private Long storageQuotaBytes;
 }
-
-
-
-
-
-
-
-

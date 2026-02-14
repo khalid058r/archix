@@ -1,5 +1,6 @@
 package archix_base.identity.dto;
 
+import archix_base.identity.entity.RoleType;
 import archix_base.organization.entity.Organization;
 import jakarta.validation.constraints.*;
 import java.util.List;
@@ -78,6 +79,8 @@ public class RegisterDto {
     private Long departmentId;
 
     private List<Long> permissionIds;
+    
+    private List<RoleType> roleTypes;
 }
 
 

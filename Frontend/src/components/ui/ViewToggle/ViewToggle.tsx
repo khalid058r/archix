@@ -1,5 +1,4 @@
 import { LayoutGrid, List } from 'lucide-react';
-import { Button } from '../Button/Button';
 
 interface ViewToggleProps {
     viewMode: 'list' | 'grid';

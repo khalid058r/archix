@@ -8,6 +8,7 @@ import archix_base.identity.mapper.PermissionMapper;
 import archix_base.identity.service.PermissionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -113,7 +114,7 @@ public class PermissionController {
     // Legacy endpoints for backwards compatibility
     @PostMapping
     @Operation(summary = "Create permission (legacy)")
-    public ResponseEntity<PermissionDto> create(@RequestBody PermissionDto dto) {
+    public ResponseEntity<PermissionDto> create(@Valid @RequestBody PermissionDto dto) {
         dto.setId(null);
         Permission permission = PermissionMapper.toEntity(dto);
         Permission saved = permissionService.create(permission);
@@ -122,7 +123,7 @@ public class PermissionController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update permission")
-    public ResponseEntity<PermissionDto> update(@PathVariable Long id, @RequestBody PermissionDto dto) {
+    public ResponseEntity<PermissionDto> update(@PathVariable Long id, @Valid @RequestBody PermissionDto dto) {
         Permission permission = PermissionMapper.toEntity(dto);
         Permission updated = permissionService.update(id, permission);
         return ResponseEntity.ok(PermissionMapper.toDto(updated));

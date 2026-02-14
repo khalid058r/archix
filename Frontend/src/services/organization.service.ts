@@ -1,6 +1,5 @@
 import api from './api';
 import type { OrganizationDto, CreateOrganizationRequest, InviteMemberRequest } from '../types/organization.types';
-import type { MessageResponse } from '../types';
 
 export const organizationService = {
     // Get all organizations (Admin/SuperAdmin)

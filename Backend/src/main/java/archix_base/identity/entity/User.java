@@ -1,6 +1,7 @@
 package archix_base.identity.entity;
 
 import archix_base.organization.entity.Department;
+import archix_base.organization.entity.Organization;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,7 +40,31 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private String phone;
+    private String avatarUrl;
+
+    private Boolean onboardingCompleted = false;
+
     private LocalDateTime createdAt;
+    
+    private LocalDateTime updatedAt;
+    
+    // Security & Account Management
+    private LocalDateTime lastLoginAt;
+    
+    @Column(nullable = false)
+    private Integer failedLoginAttempts = 0;
+    
+    private LocalDateTime lockedUntil;
+    
+    @Column(nullable = false)
+    private Boolean isDeleted = false;
+    
+    private LocalDateTime deletedAt;
+    
+    // Organization reference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     @ManyToOne
     private Department department;
@@ -106,7 +131,10 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        if (lockedUntil == null) {
+            return true;
+        }
+        return LocalDateTime.now().isAfter(lockedUntil);
     }
 
     @Override
@@ -116,7 +144,45 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return isActive != null && isActive;
+        return (isActive != null && isActive) && (isDeleted == null || !isDeleted);
+    }
+    
+    /**
+     * Check if the account is currently locked.
+     */
+    public boolean isLocked() {
+        return !isAccountNonLocked();
+    }
+    
+    /**
+     * Increment failed login attempts.
+     */
+    public void incrementFailedLoginAttempts() {
+        this.failedLoginAttempts = (this.failedLoginAttempts == null ? 0 : this.failedLoginAttempts) + 1;
+    }
+    
+    /**
+     * Reset failed login attempts on successful login.
+     */
+    public void resetFailedLoginAttempts() {
+        this.failedLoginAttempts = 0;
+        this.lockedUntil = null;
+    }
+    
+    /**
+     * Lock the account for a duration.
+     */
+    public void lockAccount(int minutes) {
+        this.lockedUntil = LocalDateTime.now().plusMinutes(minutes);
+    }
+    
+    /**
+     * Soft delete the user.
+     */
+    public void softDelete() {
+        this.isDeleted = true;
+        this.deletedAt = LocalDateTime.now();
+        this.isActive = false;
     }
 
     public String getFullName() {

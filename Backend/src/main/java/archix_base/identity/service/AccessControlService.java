@@ -12,6 +12,7 @@ import archix_base.organization.entity.Namespace;
 import archix_base.organization.repo.NamespaceRepo;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import java.util.Optional;
  * Used by controllers via @PreAuthorize annotations and by services directly.
  */
 @Service("accessControlService")
+@Transactional(readOnly = true)
 public class AccessControlService {
 
     private final PermissionRepo permissionRepo;

@@ -1,10 +1,11 @@
-import { useAuth } from '../../context/AuthContext';
+import { useAppSelector } from '../../store/hooks';
+import { selectCurrentUser } from '../../store/slices/authSlice';
 import { useGetDepartmentStatsQuery } from '../../api/endpoints/departmentApi';
 import { Users, FileText, Clock, HardDrive } from 'lucide-react';
 import { Card } from '../../components/ui/Card/Card';
 
 const DepartmentDashboard = () => {
-    const { user } = useAuth();
+    const user = useAppSelector(selectCurrentUser);
 
     // Assuming user has department object or ID
     const departmentId = user?.department?.id;

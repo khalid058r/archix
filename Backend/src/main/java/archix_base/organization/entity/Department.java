@@ -9,20 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,13 +29,22 @@ public class Department {
 
     @ManyToOne
     private Organization organization;
+
+    // Hierarchy: Parent Department
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Department parentDepartment;
+
+    // Hierarchy: Child Departments
+    @OneToMany(mappedBy = "parentDepartment", cascade = CascadeType.ALL)
+    private List<Department> children;
+
+    // Manager of this department
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private User manager;
+
+    // Storage quota in bytes (null = unlimited)
+    private Long storageQuotaBytes;
+    private Long storageUsedBytes;
 }
-
-
-
-
-
-
-
-
-

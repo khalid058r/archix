@@ -7,14 +7,15 @@ import {
     Users,
     Building2,
     LogOut,
-    FilePlus,
-    ClipboardCheck,
     Search,
-    Shield,
     FileSearch,
     Globe,
-    Server,
-    X
+    X,
+    Shield,
+    HardDrive,
+    Mail,
+    BarChart3,
+    UsersRound
 } from 'lucide-react';
 import { cn } from '../../../utils/cn';
 import { useAppDispatch } from '../../../store/hooks';
@@ -28,7 +29,7 @@ interface SidebarProps {
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     const dispatch = useAppDispatch();
-    const { isSuperAdmin, isAdmin, isManager, isUser, isGuest } = usePermissions();
+    const { isSuperAdmin, isAdmin, isManager, isGuest } = usePermissions();
 
     const handleLogout = () => {
         dispatch(logout());
@@ -40,8 +41,6 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         !isGuest && { section: 'Principal' },
         !isGuest && { icon: Home, label: 'Dashboard', to: '/dashboard' },
         !isGuest && { icon: FileText, label: 'Documents', to: '/documents' },
-        isUser && { icon: FilePlus, label: 'Nouveau', to: '/documents/upload' },
-        isManager && { icon: ClipboardCheck, label: 'À valider', to: '/documents/pending' },
 
         // Navigation
         !isGuest && { section: 'Navigation' },
@@ -57,14 +56,17 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         isAdmin && { section: 'Administration' },
         isAdmin && { icon: Users, label: 'Utilisateurs', to: '/admin/users' },
         isAdmin && { icon: Building2, label: 'Départements', to: '/admin/departments' },
-        isAdmin && { icon: Users, label: 'Équipes', to: '/teams' },
+        isAdmin && { icon: UsersRound, label: 'Équipes', to: '/teams' },
+        isAdmin && { icon: Shield, label: 'Rôles & Permissions', to: '/admin/roles' },
         isAdmin && { icon: FileSearch, label: 'Audit Logs', to: '/admin/audit' },
         isAdmin && { icon: Settings, label: 'Paramètres', to: '/admin/settings' },
 
-        // Super Admin
+        // Super Admin - Système
         isSuperAdmin && { section: 'Système' },
         isSuperAdmin && { icon: Globe, label: 'Organisations', to: '/admin/organizations' },
-        isSuperAdmin && { icon: Server, label: 'Système', to: '/super-admin/settings' },
+        isSuperAdmin && { icon: HardDrive, label: 'Stockage', to: '/admin/storage' },
+        isSuperAdmin && { icon: Mail, label: 'Invitations', to: '/admin/invitations' },
+        isSuperAdmin && { icon: BarChart3, label: 'Rapports', to: '/admin/reports' },
 
         // Guest
         isGuest && { icon: FileText, label: 'Documents partagés', to: '/shared' },

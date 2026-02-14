@@ -4,18 +4,34 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
+  fullName?: string;
   phone?: string;
   isActive: boolean;
   createdAt: string;
+  updatedAt?: string;
   departmentId?: number;
   departmentName?: string;
   department?: Department;
+  organizationId?: number;
   permissions?: Permission[];
   permissionNames?: string[];
+  roles?: Role[];
+  onboardingCompleted?: boolean;
   active?: boolean; // For compatibility
 }
 
 export type UserDto = User;
+
+// ===== ROLE TYPES =====
+export interface Role {
+  id: number;
+  name: RoleType;
+  type?: RoleType;
+  description?: string;
+  permissions?: Permission[];
+}
+
+export type RoleType = 'SUPER_ADMIN' | 'ADMIN' | 'MANAGER' | 'USER' | 'READER' | 'GUEST';
 
 // ===== AUTH TYPES =====
 export interface LoginRequest {
@@ -26,15 +42,19 @@ export interface LoginRequest {
 export interface RegisterRequest {
   email: string;
   password: string;
+  confirmPassword?: string;
   firstName: string;
   lastName: string;
   phone?: string;
   departmentId?: number;
+  organizationId?: number;
 }
 
 export interface AuthResponse {
   token: string;
-  refreshToken: string;
+  type?: string;
+  expiresIn?: number;
+  refreshToken?: string;
   user: UserDto;
 }
 
@@ -58,6 +78,14 @@ export interface Organization {
   createdAt: string;
 }
 
+export interface OrganizationSummary {
+  id: number;
+  name: string;
+  slug?: string;
+  description?: string;
+  logoUrl?: string;
+}
+
 // ===== DEPARTMENT TYPES =====
 export interface Department {
   id: number;
@@ -67,52 +95,82 @@ export interface Department {
   organizationId?: number;
   organizationName?: string;
   userCount?: number;
+  // Hierarchy
+  parentId?: number;
+  parentName?: string;
+  childrenCount?: number;
+  // Manager
+  managerId?: number;
+  managerName?: string;
+  // Storage
+  storageQuotaBytes?: number;
+  storageUsedBytes?: number;
 }
 
 export interface CreateDepartmentRequest {
   name: string;
   description?: string;
   organizationId?: number;
+  parentId?: number;
+  managerId?: number;
+  storageQuotaBytes?: number;
 }
 
 // ===== NAMESPACE TYPES =====
 export interface Namespace {
   id: number;
   name: string;
-  path: string;
+  path?: string;
+  slug?: string;
   createdAt: string;
-  createdById: number;
-  createdByName: string;
+  createdById?: number;
+  createdByName?: string;
   parentId?: number;
   parentName?: string;
   childrenCount?: number;
   documentsCount?: number;
+  documentCount?: number;
+  departmentId?: number;
+  description?: string;
+  isActive?: boolean;
+  // Retention Policy
+  retentionDays?: number;
+  autoArchive?: boolean;
 }
 
 export interface CreateNamespaceRequest {
   name: string;
   parentId?: number;
+  retentionDays?: number;
+  autoArchive?: boolean;
 }
 
 // ===== DOCUMENT TYPES =====
 export interface Document {
   id: number;
   name: string;
+  title?: string; // @deprecated use name
   fileName: string;
   fileSize: number;
   mimeType: string;
-  path: string;
+  path?: string;
+  filePath?: string;
   createdAt: string;
-  updatedAt: string;
-  createdById: number;
-  createdByName: string;
+  updatedAt?: string;
+  createdById?: number;
+  createdByName?: string;
   parentId?: number;
   parentName?: string;
   namespace?: Namespace;
+  namespaceId?: number;
+  departmentId?: number;
+  organizationId?: number;
   status: DocumentStatus;
   currentVersion?: number; // Added for versioning support
   version?: number; // Alias often used
-  organizationId?: number;
+  tags?: Array<{ id: number; name: string; color?: string }>;
+  metadata?: Array<{ id: number; key: string; value: string }>;
+  description?: string;
 }
 
 export interface DocumentVersion {
@@ -216,13 +274,16 @@ export interface SortConfig {
 }
 
 // ===== DOCUMENT STATUSES =====
-export type DocumentStatus = 'draft' | 'review' | 'approved' | 'archived';
+export type DocumentStatus = 'DRAFT' | 'PENDING_REVIEW' | 'IN_REVIEW' | 'APPROVED' | 'REJECTED' | 'PUBLISHED' | 'ARCHIVED';
 
 export const DOCUMENT_STATUS_LABELS: Record<DocumentStatus, string> = {
-  draft: 'Brouillon',
-  review: 'En révision',
-  approved: 'Approuvé',
-  archived: 'Archivé',
+  DRAFT: 'Brouillon',
+  PENDING_REVIEW: 'En attente de révision',
+  IN_REVIEW: 'En révision',
+  APPROVED: 'Approuvé',
+  REJECTED: 'Rejeté',
+  PUBLISHED: 'Publié',
+  ARCHIVED: 'Archivé',
 };
 
 // ===== FILE TYPE ICONS =====

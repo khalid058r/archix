@@ -45,4 +45,51 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
         // Security: Find users by Organization (via Department)
         List<User> findByDepartmentOrganizationId(Long organizationId);
+
+        // ==================== New methods for soft delete and pagination
+        // ====================
+
+        /**
+         * Find non-deleted users by organization (via department).
+         */
+        @Query("SELECT u FROM User u WHERE u.department.organization.id = :orgId AND (u.isDeleted = false OR u.isDeleted IS NULL)")
+        List<User> findByDepartmentOrganizationIdAndIsDeletedFalse(@Param("orgId") Long organizationId);
+
+        /**
+         * Find non-deleted users by organization with pagination.
+         */
+        @Query("SELECT u FROM User u WHERE u.organization.id = :orgId AND (u.isDeleted = false OR u.isDeleted IS NULL)")
+        Page<User> findByOrganizationIdAndIsDeletedFalse(@Param("orgId") Long organizationId, Pageable pageable);
+
+        /**
+         * Search users by organization with text search on email/name.
+         */
+        @Query("SELECT u FROM User u WHERE u.organization.id = :orgId " +
+                        "AND (u.isDeleted = false OR u.isDeleted IS NULL) " +
+                        "AND (:query IS NULL OR :query = '' OR " +
+                        "LOWER(u.email) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+                        "LOWER(u.firstName) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+                        "LOWER(u.lastName) LIKE LOWER(CONCAT('%', :query, '%')))")
+        Page<User> searchByOrganization(
+                        @Param("orgId") Long organizationId,
+                        @Param("query") String query,
+                        Pageable pageable);
+
+        /**
+         * Count active users by organization.
+         */
+        @Query("SELECT COUNT(u) FROM User u WHERE u.organization.id = :orgId AND u.isActive = true AND (u.isDeleted = false OR u.isDeleted IS NULL)")
+        Long countActiveByOrganizationId(@Param("orgId") Long organizationId);
+
+        /**
+         * Find users with locked accounts.
+         */
+        @Query("SELECT u FROM User u WHERE u.lockedUntil IS NOT NULL AND u.lockedUntil > CURRENT_TIMESTAMP")
+        List<User> findLockedUsers();
+
+        /**
+         * Count all users in an organization.
+         */
+        @Query("SELECT COUNT(u) FROM User u WHERE u.organization.id = :orgId")
+        long countByOrganizationId(@Param("orgId") Long organizationId);
 }

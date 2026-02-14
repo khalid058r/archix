@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Plus, Search, Building2, MoreVertical, Trash2, ExternalLink } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Plus, Search, Building2, Trash2, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/Button/Button';
 import { Card } from '../../components/ui/Card/Card';
 import { Input } from '../../components/ui/Input/Input';
 import { organizationService } from '../../services/organization.service';
-import type { OrganizationDto } from '../../types/organization.types';
+import type { Organization } from '../../types/organization.types';
 import toast from 'react-hot-toast';
 
 export const Organizations = () => {
-    const [organizations, setOrganizations] = useState<OrganizationDto[]>([]);
+    const [organizations, setOrganizations] = useState<Organization[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 

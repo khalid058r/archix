@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, Clock, Eye, File, CheckCircle } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useAppSelector } from '../store/hooks';
+import { selectCurrentUser } from '../store/slices/authSlice';
 import { Card, CardContent, Button, Badge, Spinner } from '../components/ui';
 import type { BadgeVariant } from '../components/ui/Badge';
 import { documentService } from '../services';
@@ -16,7 +17,7 @@ interface Stats {
 }
 
 export function Dashboard() {
-    const { user } = useAuth();
+    const user = useAppSelector(selectCurrentUser);
     const [stats, setStats] = useState<Stats>({ documents: 0, drafts: 0, review: 0, published: 0 });
     const [recentDocuments, setRecentDocuments] = useState<Document[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -61,11 +62,18 @@ export function Dashboard() {
 
     const getBadgeVariant = (status: DocumentStatus): BadgeVariant => {
         switch (status) {
-            case 'approved': return 'success';
-            case 'review': return 'warning';
-            case 'draft': return 'default';
-            case 'archived': return 'default';
-            default: return 'default';
+            case 'APPROVED': 
+            case 'PUBLISHED': 
+                return 'success';
+            case 'PENDING_REVIEW': 
+            case 'IN_REVIEW': 
+                return 'warning';
+            case 'REJECTED': 
+                return 'error';
+            case 'DRAFT': 
+            case 'ARCHIVED': 
+            default: 
+                return 'default';
         }
     };
 
@@ -77,7 +85,7 @@ export function Dashboard() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
 
-    const formatDate = (dateString: string): string => {
+    const formatDate = (dateString?: string): string => {
         if (!dateString) return '-';
         return new Date(dateString).toISOString().split('T')[0];
     };

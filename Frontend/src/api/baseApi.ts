@@ -13,19 +13,33 @@ const axiosBaseQuery =
             data?: AxiosRequestConfig['data'];
             params?: AxiosRequestConfig['params'];
             headers?: AxiosRequestConfig['headers'];
+            formData?: boolean;
         },
         unknown,
         unknown
     > =>
-        async ({ url, method, data, params, headers }) => {
+        async ({ url, method, data, params, headers, formData }) => {
             try {
-                const result = await axiosInstance({
+                // Check if this is a FormData request
+                const isFormDataRequest = formData && data instanceof FormData;
+
+                const config: AxiosRequestConfig = {
                     url: baseUrl + url,
                     method,
                     data,
                     params,
-                    headers,
-                });
+                    // For FormData, don't include default headers - let axios auto-set Content-Type with boundary
+                    headers: isFormDataRequest
+                        ? { ...headers }  // Only custom headers, no Content-Type
+                        : { ...headers },
+                };
+
+                // If FormData, explicitly remove Content-Type so axios sets it with correct boundary
+                if (isFormDataRequest && config.headers) {
+                    delete config.headers['Content-Type'];
+                }
+
+                const result = await axiosInstance(config);
                 return { data: result.data };
             } catch (axiosError) {
                 const err = axiosError as AxiosError;
@@ -41,6 +55,6 @@ const axiosBaseQuery =
 export const baseApi = createApi({
     reducerPath: 'api',
     baseQuery: axiosBaseQuery(),
-    tagTypes: ['User', 'Document', 'Department', 'Namespace', 'Team'],
+    tagTypes: ['User', 'Document', 'Department', 'Namespace', 'Team', 'Organization', 'Audit', 'Tag', 'Comment', 'Notification', 'Setting', 'Report', 'InviteCode'],
     endpoints: () => ({}),
 });

@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { FileText, Clock, FileCheck, File, Users, Building, AlertCircle } from 'lucide-react';
+import { FileText, Clock, FileCheck, File, Users, Building } from 'lucide-react';
 import { Card } from '../../ui/Card/Card';
 import { cn } from '../../../utils/cn';
 import { useGetDocumentsQuery } from '../../../api/endpoints/documentsApi';
 import { useAppSelector } from '../../../store/hooks';
-import { selectCurrentOrganization } from '../../../store/slices/authSlice';
 import { usePermissions } from '../../../hooks/usePermissions';
 import { userApi } from '../../../api/endpoints/userApi';
 import { departmentApi } from '../../../api/endpoints/departmentApi';

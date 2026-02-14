@@ -61,7 +61,7 @@ export function DocumentCard({
                         {doc.name}
                     </div>
                     <div className="document-list-meta">
-                        {formatFileSize(doc.fileSize)} • {new Date(doc.updatedAt).toLocaleDateString()}
+                        {formatFileSize(doc.fileSize)} • {doc.updatedAt ? new Date(doc.updatedAt).toLocaleDateString() : '-'}
                     </div>
                 </div>
                 <div className="document-list-actions">
@@ -118,7 +118,7 @@ export function DocumentCard({
 
                 <div className="document-grid-meta">
                     <span>{formatFileSize(doc.fileSize)}</span>
-                    <span>{new Date(doc.updatedAt).toLocaleDateString()}</span>
+                    <span>{doc.updatedAt ? new Date(doc.updatedAt).toLocaleDateString() : '-'}</span>
                 </div>
             </div>
         </Card>

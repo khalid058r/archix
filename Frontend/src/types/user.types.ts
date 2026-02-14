@@ -5,30 +5,42 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
-    fullName: string;
+    fullName?: string;
     phone?: string;
     avatarUrl?: string;
     isActive: boolean;
-    isVerified: boolean;
+    isVerified?: boolean;
     lastLogin?: string;
-    organizationId: number;
+    organizationId?: number;
     departmentId?: number;
     department?: Department;
-    roles: Role[];
+    roles?: Role[];
+    permissions?: Permission[];
     createdAt: string;
-    updatedAt: string;
+    updatedAt?: string;
+    onboardingCompleted?: boolean;
 }
+
+// Alias for compatibility
+export type UserDto = User;
 
 export interface Role {
     id: number;
-    name: 'SUPER_ADMIN' | 'ADMIN' | 'MANAGER' | 'USER' | 'READER' | 'GUEST';
+    name: RoleType;
+    type?: RoleType;
     description?: string;
-    permissions: Permission[];
+    permissions?: Permission[];
 }
+
+export type RoleType = 'SUPER_ADMIN' | 'ADMIN' | 'MANAGER' | 'USER' | 'READER' | 'GUEST';
 
 export interface Permission {
     id: number;
     name: string;
-    resource: string;
-    action: string;
+    type?: string;
+    resource?: string;
+    action?: string;
+    grantedAt?: string;
+    grantedById?: number;
+    grantedByName?: string;
 }

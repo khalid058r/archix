@@ -7,16 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;
 
-
-
-
-
-
-
-
-
-
-
 //package archix_base.organization.dto;
 
 //
@@ -33,8 +23,6 @@ import lombok.Data;
 //    private Long parentId;
 //    private List<Long> childrenIds;
 //}
-
-
 
 @Data
 public class NamespaceDto {
@@ -54,12 +42,8 @@ public class NamespaceDto {
     private Long parentId;
 
     private List<Long> childrenIds;
+
+    // Retention Policy
+    private Integer retentionDays;
+    private Boolean autoArchive;
 }
-
-
-
-
-
-
-
-

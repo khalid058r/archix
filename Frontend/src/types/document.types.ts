@@ -15,24 +15,28 @@ export interface Document {
     title?: string; // @deprecated use name
     name: string;
     fileName: string;
-    filePath: string;
+    filePath?: string;
+    path?: string;
     fileSize: number;
     mimeType: string;
     checksum?: string;
     status: DocumentStatus;
     description?: string;
-    currentVersion: number;
-    namespaceId: number;
+    currentVersion?: number;
+    version?: number;
+    namespaceId?: number;
     namespace?: Namespace;
     departmentId?: number;
     department?: Department;
-    createdBy: User;
+    organizationId?: number;
+    createdBy?: User;
+    createdById?: number;
     createdByName?: string;
     updatedBy?: User;
-    tags: Tag[];
-    metadata: DocumentMetadata[];
+    tags?: Tag[];
+    metadata?: DocumentMetadata[];
     createdAt: string;
-    updatedAt: string;
+    updatedAt?: string;
 }
 
 export interface DocumentVersion {

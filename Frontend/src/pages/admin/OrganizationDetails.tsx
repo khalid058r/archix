@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, UserPlus, Save } from 'lucide-react';
+import { ArrowLeft, UserPlus } from 'lucide-react';
 import { Button } from '../../components/ui/Button/Button';
 import { Card } from '../../components/ui/Card/Card';
 import { Input } from '../../components/ui/Input/Input';
@@ -35,7 +35,7 @@ export const OrganizationDetails = () => {
     const handleInvite = async () => {
         if (!organization || !inviteEmail) return;
         try {
-            await organizationService.addMember(organization.id, { email: inviteEmail, role: 'MEMBER' });
+            await organizationService.addMember(organization.id, { email: inviteEmail });
             toast.success(`Invitation envoyée à ${inviteEmail}`);
             setInviteEmail('');
         } catch (error) {

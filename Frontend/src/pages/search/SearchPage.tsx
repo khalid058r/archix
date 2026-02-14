@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Filter, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { DocumentList } from '../../components/features/documents/DocumentList';
 import { Button } from '../../components/ui/Button/Button';
 import { ViewToggle } from '../../components/ui/ViewToggle/ViewToggle';
@@ -8,7 +8,6 @@ import type { DocumentStatus } from '../../types/document.types';
 export const SearchPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [status, setStatus] = useState<DocumentStatus | ''>('');
-    const [showFilters, setShowFilters] = useState(false);
     const [viewMode, setViewMode] = useState<'list' | 'grid'>('grid');
 
     // Debounce logic could be added here, currently simple state

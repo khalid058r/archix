@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Plus, Search, User as UserIcon, Trash2, Mail, Phone, Building } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Plus, Search, User as UserIcon, Trash2, Mail, Phone, Building, Edit } from 'lucide-react';
 import { Button } from '../../components/ui/Button/Button';
 import { Card } from '../../components/ui/Card/Card';
 import { Input } from '../../components/ui/Input/Input';
 import { Modal } from '../../components/ui/Modal/Modal';
-import { FileUploader } from '../../components/ui/FileUploader'; // Reusing for consistency, though maybe not for user avatar yet
 import { userApi } from '../../api/endpoints/userApi';
 import type { User } from '../../types/user.types';
 import toast from 'react-hot-toast';
@@ -14,6 +13,8 @@ export const UsersPage = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     // New User State
     const [newUser, setNewUser] = useState({
@@ -68,8 +69,27 @@ export const UsersPage = () => {
         }
     };
 
+    const handleEdit = async () => {
+        if (!selectedUser) return;
+        try {
+            await userApi.update(selectedUser.id, {
+                firstName: selectedUser.firstName,
+                lastName: selectedUser.lastName,
+                email: selectedUser.email,
+                isActive: selectedUser.isActive
+            });
+            toast.success('Utilisateur mis à jour');
+            setIsEditModalOpen(false);
+            setSelectedUser(null);
+            loadUsers();
+        } catch (error) {
+            console.error(error);
+            toast.error('Erreur lors de la mise à jour');
+        }
+    };
+
     const filteredUsers = users.filter(user =>
-        user.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (user.fullName ?? `${user.firstName} ${user.lastName}`).toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -148,6 +168,12 @@ export const UsersPage = () => {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
+                                <Button variant="ghost" size="sm" className="text-blue-500 hover:bg-blue-50" onClick={() => {
+                                    setSelectedUser(user);
+                                    setIsEditModalOpen(true);
+                                }}>
+                                    <Edit className="w-4 h-4" />
+                                </Button>
                                 <Button variant="ghost" size="sm" className="text-red-500 hover:bg-red-50" onClick={() => handleDelete(user.id)}>
                                     <Trash2 className="w-4 h-4" />
                                 </Button>
@@ -211,6 +237,52 @@ export const UsersPage = () => {
                         onChange={(e) => setNewUser({ ...newUser, departmentId: e.target.value })}
                     />
                 </div>
+            </Modal>
+
+            {/* Edit Modal */}
+            <Modal
+                isOpen={isEditModalOpen}
+                onClose={() => { setIsEditModalOpen(false); setSelectedUser(null); }}
+                title="Modifier l'utilisateur"
+                footer={
+                    <>
+                        <Button variant="ghost" onClick={() => { setIsEditModalOpen(false); setSelectedUser(null); }}>Annuler</Button>
+                        <Button variant="primary" onClick={handleEdit}>Sauvegarder</Button>
+                    </>
+                }
+            >
+                {selectedUser && (
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <Input
+                                label="Prénom"
+                                value={selectedUser.firstName || ''}
+                                onChange={(e) => setSelectedUser({ ...selectedUser, firstName: e.target.value })}
+                            />
+                            <Input
+                                label="Nom"
+                                value={selectedUser.lastName || ''}
+                                onChange={(e) => setSelectedUser({ ...selectedUser, lastName: e.target.value })}
+                            />
+                        </div>
+                        <Input
+                            label="Email"
+                            type="email"
+                            value={selectedUser.email}
+                            onChange={(e) => setSelectedUser({ ...selectedUser, email: e.target.value })}
+                        />
+                        <div className="flex items-center gap-3 mt-4">
+                            <input
+                                type="checkbox"
+                                id="isActive"
+                                checked={selectedUser.isActive}
+                                onChange={(e) => setSelectedUser({ ...selectedUser, isActive: e.target.checked })}
+                                className="w-4 h-4 rounded border-gray-300"
+                            />
+                            <label htmlFor="isActive" className="text-sm text-gray-700">Compte actif</label>
+                        </div>
+                    </div>
+                )}
             </Modal>
         </div>
     );

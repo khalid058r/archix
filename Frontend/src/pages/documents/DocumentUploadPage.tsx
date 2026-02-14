@@ -11,7 +11,7 @@ import { Input } from '../../components/ui/Input/Input';
 import { Button } from '../../components/ui/Button/Button';
 import { FileUploader } from '../../components/ui/FileUploader';
 import { useCreateDocumentMutation } from '../../api/endpoints/documentsApi';
-import { useGetRootNamespacesQuery, useGetChildNamespacesQuery } from '../../api/endpoints/namespacesApi';
+import { useGetRootNamespacesQuery } from '../../api/endpoints/namespacesApi';
 import { usePermissions } from '../../hooks/usePermissions';
 
 const uploadSchema = z.object({
@@ -65,11 +65,11 @@ const DocumentUploadPage = () => {
         try {
             const formData = new FormData();
             formData.append('file', files[0]);
-            formData.append('title', data.title);
-            formData.append('description', data.description || '');
+            // Backend expects 'name' parameter, not 'title'
+            formData.append('name', data.title);
             if (data.parentId) formData.append('parentId', data.parentId);
-            formData.append('createdById', user.id.toString());
-            // Tags to be implemented
+            // Note: createdById and description are not expected by the backend upload endpoint
+            // The backend gets userId from the authenticated user automatically
 
             await createDocument(formData).unwrap();
 

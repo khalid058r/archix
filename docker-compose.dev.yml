@@ -1,0 +1,35 @@
+# ============================================
+# ARCHIX - Docker Compose Development Override
+# ============================================
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+#
+# This file overrides the main docker-compose.yml for local development.
+# Only starts infrastructure services (postgres, redis, minio).
+# Backend and Frontend are run locally for hot-reload.
+
+version: '3.8'
+
+services:
+  # Infrastructure services only - no changes needed
+  postgres:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  # Don't start backend in dev mode (run locally)
+  backend:
+    profiles:
+      - full-stack
+
+  # Don't start frontend in dev mode (run locally)
+  frontend:
+    profiles:
+      - full-stack

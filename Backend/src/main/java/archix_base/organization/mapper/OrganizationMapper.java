@@ -1,22 +1,15 @@
 package archix_base.organization.mapper;
 
 import archix_base.organization.dto.OrganizationDto;
+import archix_base.organization.dto.OrganizationResponse;
 import archix_base.organization.entity.Organization;
 
-
-
-
-
-
-
-
-
-
-
-
-
 public class OrganizationMapper {
+    
     public static OrganizationDto toDto(Organization organization){
+        if (organization == null) {
+            return null;
+        }
         OrganizationDto organizationDto = new OrganizationDto();
         organizationDto.setId(organization.getId());
         organizationDto.setName(organization.getName());
@@ -30,6 +23,44 @@ public class OrganizationMapper {
         organizationDto.setCreatedAt(organization.getCreatedAt());
 
         return organizationDto;
+    }
+
+    /**
+     * Convert Organization entity to OrganizationResponse with plan details.
+     */
+    public static OrganizationResponse toResponse(Organization org) {
+        if (org == null) return null;
+        
+        OrganizationResponse.OrganizationResponseBuilder builder = OrganizationResponse.builder()
+                .id(org.getId())
+                .name(org.getName())
+                .description(org.getDescription())
+                .address(org.getAddress())
+                .city(org.getCity())
+                .country(org.getCountry())
+                .postalCode(org.getPostalCode())
+                .phone(org.getPhone())
+                .email(org.getEmail())
+                .plan(org.getPlan())
+                .planDisplayName(org.getPlan() != null ? org.getPlan().getDisplayName() : null)
+                .storageUsedBytes(org.getStorageUsedBytes())
+                .storageQuotaBytes(org.getStorageQuotaBytes())
+                .storageUsagePercentage(org.getStorageUsagePercentage())
+                .maxUsers(org.getMaxUsers())
+                .currentUserCount(org.getCurrentUserCount())
+                .maxDocuments(org.getPlan() != null ? org.getPlan().getDefaultMaxDocuments() : null)
+                .settings(org.getSettings())
+                .isActive(org.getIsActive())
+                .suspendedAt(org.getSuspendedAt())
+                .createdAt(org.getCreatedAt())
+                .updatedAt(org.getUpdatedAt());
+
+        if (org.getCreatedBy() != null) {
+            builder.createdById(org.getCreatedBy().getId())
+                   .createdByName(org.getCreatedBy().getFullName());
+        }
+
+        return builder.build();
     }
 
     public static Organization toEntity(OrganizationDto organizationDto){

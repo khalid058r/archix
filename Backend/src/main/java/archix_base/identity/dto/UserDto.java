@@ -68,6 +68,8 @@ public class UserDto {
 
     private List<RoleDto> roles;
 
+    private Boolean onboardingCompleted;
+
     // Champ calculÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© pour le frontend
     public String getFullName() {
         return (firstName != null ? firstName : "") + " " + (lastName != null ? lastName : "");

@@ -6,7 +6,15 @@ import { documentService } from '../../services';
 import { Card } from '../../components/ui/Card/Card';
 import { Button } from '../../components/ui/Button/Button';
 import { Badge } from '../../components/ui/Badge/Badge';
-import { useGetDocumentByIdQuery } from '../../api/endpoints/documentsApi';
+import {
+    useGetDocumentByIdQuery,
+    useSubmitDocumentMutation,
+    useStartReviewMutation,
+    useApproveDocumentMutation,
+    useRejectDocumentMutation,
+    usePublishDocumentMutation,
+    useArchiveDocumentMutation
+} from '../../api/endpoints/documentsApi';
 import { DocumentPreview } from '../../components/documents/DocumentPreview';
 
 const DocumentDetailPage = () => {
@@ -16,6 +24,14 @@ const DocumentDetailPage = () => {
     // State for action loading
     const [actionLoading, setActionLoading] = useState<string | null>(null);
     const [versions, setVersions] = useState<any[]>([]);
+
+    // RTK Query mutations for workflow actions
+    const [submitDocument] = useSubmitDocumentMutation();
+    const [startReview] = useStartReviewMutation();
+    const [approveDocument] = useApproveDocumentMutation();
+    const [rejectDocument] = useRejectDocumentMutation();
+    const [publishDocument] = usePublishDocumentMutation();
+    const [archiveDocument] = useArchiveDocumentMutation();
 
     const fetchVersions = async (id: number) => {
         try {
@@ -40,14 +56,19 @@ const DocumentDetailPage = () => {
 
     const handleBack = () => navigate('/documents');
 
-    const handleAction = async (action: string, apiCall: () => Promise<any>, successMessage: string) => {
+    const handleAction = async (
+        action: string,
+        apiCall: () => Promise<any>,
+        successMessage: string
+    ) => {
         if (!confirm('Êtes-vous sûr de vouloir effectuer cette action ?')) return;
 
         try {
             setActionLoading(action);
             await apiCall();
             toast.success(successMessage);
-            refetch(); // Refresh document data
+            // RTK Query mutations automatically invalidate cache, but refetch for extra safety
+            refetch();
         } catch (err) {
             console.error(err);
             toast.error("Erreur lors de l'action");
@@ -62,7 +83,7 @@ const DocumentDetailPage = () => {
 
         try {
             setActionLoading('reject');
-            await documentService.reject(docId, reason);
+            await rejectDocument({ id: docId, reason }).unwrap();
             toast.success('Document rejeté');
             refetch();
         } catch (err) {
@@ -121,7 +142,7 @@ const DocumentDetailPage = () => {
                         <Button
                             variant="primary"
                             isLoading={actionLoading === 'submit'}
-                            onClick={() => handleAction('submit', () => documentService.submit(docId), 'Document soumis')}
+                            onClick={() => handleAction('submit', () => submitDocument(docId).unwrap(), 'Document soumis')}
                         >
                             Soumettre
                         </Button>
@@ -131,7 +152,7 @@ const DocumentDetailPage = () => {
                         <Button
                             variant="primary"
                             isLoading={actionLoading === 'review'}
-                            onClick={() => handleAction('review', () => documentService.startReview(docId), 'Révision commencée')}
+                            onClick={() => handleAction('review', () => startReview(docId).unwrap(), 'Révision commencée')}
                         >
                             Commencer Révision
                         </Button>
@@ -143,7 +164,7 @@ const DocumentDetailPage = () => {
                                 variant="primary"
                                 className="bg-green-600 hover:bg-green-700"
                                 isLoading={actionLoading === 'approve'}
-                                onClick={() => handleAction('approve', () => documentService.approve(docId), 'Document approuvé')}
+                                onClick={() => handleAction('approve', () => approveDocument(docId).unwrap(), 'Document approuvé')}
                             >
                                 Valider
                             </Button>
@@ -162,7 +183,7 @@ const DocumentDetailPage = () => {
                         <Button
                             variant="primary"
                             isLoading={actionLoading === 'publish'}
-                            onClick={() => handleAction('publish', () => documentService.publish(docId), 'Document publié')}
+                            onClick={() => handleAction('publish', () => publishDocument(docId).unwrap(), 'Document publié')}
                         >
                             Publier
                         </Button>
@@ -172,7 +193,7 @@ const DocumentDetailPage = () => {
                         <Button
                             variant="secondary"
                             isLoading={actionLoading === 'archive'}
-                            onClick={() => handleAction('archive', () => documentService.archive(docId), 'Document archivé')}
+                            onClick={() => handleAction('archive', () => archiveDocument(docId).unwrap(), 'Document archivé')}
                         >
                             Archiver
                         </Button>
@@ -222,7 +243,7 @@ const DocumentDetailPage = () => {
                                             <span className="font-bold text-gray-900 text-sm">Version {document.currentVersion || 1}</span>
                                             <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">Actuelle</span>
                                         </div>
-                                        <p className="text-xs text-gray-500 mb-2">Mise à jour le {new Date(document.updatedAt).toLocaleString()}</p>
+                                        <p className="text-xs text-gray-500 mb-2">Mise à jour le {document.updatedAt ? new Date(document.updatedAt).toLocaleString() : '-'}</p>
                                         <p className="text-sm text-gray-700 leading-relaxed">Dernière modification du document.</p>
                                     </div>
                                 </div>
@@ -301,9 +322,9 @@ const DocumentDetailPage = () => {
                                     <div>
                                         <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Dernière modification</p>
                                         <p className="font-medium text-gray-900 mt-0.5">
-                                            {new Date(document.updatedAt).toLocaleDateString(undefined, {
+                                            {document.updatedAt ? new Date(document.updatedAt).toLocaleDateString(undefined, {
                                                 year: 'numeric', month: 'long', day: 'numeric'
-                                            })}
+                                            }) : '-'}
                                         </p>
                                     </div>
                                 </div>

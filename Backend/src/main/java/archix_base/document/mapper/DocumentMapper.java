@@ -1,6 +1,7 @@
 package archix_base.document.mapper;
 
 import archix_base.document.dto.DocumentDto;
+import archix_base.document.dto.DocumentResponse;
 import archix_base.document.entity.Document;
 
 import archix_base.organization.mapper.NamespaceMapper;
@@ -27,7 +28,67 @@ public class DocumentMapper {
             dto.setNamespace(NamespaceMapper.toDto(doc.getParent()));
         }
         dto.setOrganizationId(doc.getOrganization() != null ? doc.getOrganization().getId() : null);
+        dto.setCurrentVersion(doc.getVersion() != null ? doc.getVersion().longValue() : 1L);
         return dto;
+    }
+
+    /**
+     * Convert Document entity to DocumentResponse (full details for API).
+     */
+    public static DocumentResponse toResponse(Document doc) {
+        if (doc == null)
+            return null;
+        
+        DocumentResponse.DocumentResponseBuilder builder = DocumentResponse.builder()
+                .id(doc.getId())
+                .name(doc.getName())
+                .fileName(doc.getFileName())
+                .originalFileName(doc.getOriginalFileName())
+                .fileSize(doc.getFileSize())
+                .mimeType(doc.getMimeType())
+                .description(doc.getDescription())
+                .tags(doc.getTags())
+                .status(doc.getStatus())
+                .processingStatus(doc.getProcessingStatus())
+                .version(doc.getVersion())
+                .isLatestVersion(doc.getIsLatestVersion())
+                .previousVersionId(doc.getPreviousVersionId())
+                .latestVersionId(doc.getLatestVersionId())
+                .checksum(doc.getChecksum())
+                .hasThumbnail(doc.getThumbnailPath() != null)
+                .downloadCount(doc.getDownloadCount())
+                .lastAccessedAt(doc.getLastAccessedAt())
+                .createdAt(doc.getCreatedAt())
+                .updatedAt(doc.getUpdatedAt());
+
+        if (doc.getCreatedBy() != null) {
+            builder.createdById(doc.getCreatedBy().getId())
+                   .createdByName(doc.getCreatedBy().getFullName())
+                   .createdByEmail(doc.getCreatedBy().getEmail());
+        }
+
+        if (doc.getParent() != null) {
+            builder.parentId(doc.getParent().getId())
+                   .parentName(doc.getParent().getName());
+        }
+
+        if (doc.getOrganization() != null) {
+            builder.organizationId(doc.getOrganization().getId());
+        }
+
+        return builder.build();
+    }
+
+    /**
+     * Convert Document entity to DocumentResponse with presigned URLs.
+     */
+    public static DocumentResponse toResponseWithUrls(Document doc, String downloadUrl, String thumbnailUrl) {
+        DocumentResponse response = toResponse(doc);
+        if (response != null) {
+            response.setDownloadUrl(downloadUrl);
+            response.setThumbnailUrl(thumbnailUrl);
+        }
+        return response;
     }
 
     public static Document toEntity(DocumentDto dto) {
@@ -40,9 +101,7 @@ public class DocumentMapper {
         doc.setFileSize(dto.getFileSize());
         doc.setMimeType(dto.getMimeType());
         doc.setUpdatedAt(dto.getUpdatedAt());
-        // createdBy et parent sont
-        // gÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©rÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©s
-        // par le service lors de la persistance
+        // createdBy et parent sont gérés par le service lors de la persistance
         return doc;
     }
 

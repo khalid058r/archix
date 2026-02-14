@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Folder, FileText, ArrowLeft, Plus, ChevronRight, Loader2, MoreVertical } from 'lucide-react';
+import { Folder, FileText, ArrowLeft, Plus, ChevronRight, Loader2 } from 'lucide-react';
 import { Button } from '../../components/ui/Button/Button';
 import { Card } from '../../components/ui/Card/Card';
 import { Badge } from '../../components/ui/Badge/Badge';
@@ -172,7 +172,7 @@ export const NamespacesPage = () => {
                                                 <Badge status={doc.status} />
                                             </td>
                                             <td className="px-6 py-3 text-gray-500">
-                                                {new Date(doc.updatedAt).toLocaleDateString()}
+                                                {doc.updatedAt ? new Date(doc.updatedAt).toLocaleDateString() : '-'}
                                             </td>
                                             <td className="px-6 py-3 text-right">
                                                 <div className="flex justify-end">

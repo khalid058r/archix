@@ -11,7 +11,8 @@ import { Input } from '../../components/ui/Input/Input';
 import { Button } from '../../components/ui/Button/Button';
 import { useLoginMutation } from '../../api/endpoints/authApi';
 import { useAppDispatch } from '../../store/hooks';
-import { setCredentials } from '../../store/slices/authSlice';
+import { setCredentials, setOrganizations } from '../../store/slices/authSlice';
+import { organizationService } from '../../services/organization.service';
 
 const loginSchema = z.object({
     email: z.string().email('Email invalide'),
@@ -44,6 +45,16 @@ const LoginPage = () => {
         try {
             const response = await login(data).unwrap();
             dispatch(setCredentials({ user: response.user, accessToken: response.token }));
+
+            // Fetch and set organizations after login
+            try {
+                const orgs = await organizationService.getAll();
+                const orgSummaries = orgs.map(o => ({ id: o.id, name: o.name, slug: o.slug, description: o.description, logoUrl: o.logoUrl }));
+                dispatch(setCredentials({ user: response.user, accessToken: response.token, organizations: orgSummaries }));
+            } catch (orgErr) {
+                console.warn('Failed to fetch organizations:', orgErr);
+            }
+
             toast.success(`Bienvenue, ${response.user.firstName} !`);
             navigate('/dashboard');
         } catch (err: any) {

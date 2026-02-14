@@ -78,12 +78,8 @@ public class OrganizationDto {
     private String email;
 
     private LocalDateTime createdAt;
+    
+    // Statistics fields (populated by getOrganizationWithStats)
+    private Integer departmentCount;
+    private Integer userCount;
 }
-
-
-
-
-
-
-
-

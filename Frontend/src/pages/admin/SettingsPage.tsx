@@ -5,6 +5,7 @@ import { Card } from '../../components/ui/Card/Card';
 import { Input } from '../../components/ui/Input/Input';
 import toast from 'react-hot-toast';
 import { useAppSelector } from '../../store/hooks';
+import { organizationApi } from '../../api/endpoints/organizationApi';
 
 export const SettingsPage = () => {
     const currentOrg = useAppSelector((state) => state.auth.currentOrganization);
@@ -16,9 +17,20 @@ export const SettingsPage = () => {
         retentionDays: 30
     });
 
-    const handleSave = () => {
-        // Here we would call organizationApi.update(currentOrg.id, settings)
-        toast.success('Paramètres sauvegardés (Simulation)');
+    const handleSave = async () => {
+        if (!currentOrg) {
+            toast.error('Aucune organisation sélectionnée');
+            return;
+        }
+        try {
+            await organizationApi.update(currentOrg.id, {
+                name: settings.orgName
+            });
+            toast.success('Paramètres sauvegardés');
+        } catch (error) {
+            console.error(error);
+            toast.error('Erreur lors de la sauvegarde');
+        }
     };
 
     return (

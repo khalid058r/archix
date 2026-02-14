@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Filter, Search } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { DocumentList } from '../../components/features/documents/DocumentList';
 import { Button } from '../../components/ui/Button/Button';
@@ -110,7 +110,11 @@ const DocumentsPage = () => {
                     >
                         <option value="">Tous statuts</option>
                         <option value="DRAFT">Brouillon</option>
+                        <option value="PENDING_REVIEW">À valider</option>
+                        <option value="IN_REVIEW">En révision</option>
                         <option value="APPROVED">Approuvé</option>
+                        <option value="PUBLISHED">Publié</option>
+                        <option value="ARCHIVED">Archivé</option>
                     </select>
 
                     <ViewToggle viewMode={viewMode} onChange={setViewMode} />

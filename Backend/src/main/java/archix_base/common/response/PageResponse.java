@@ -43,6 +43,20 @@ public class PageResponse<T> {
                 .hasPrevious(page.hasPrevious())
                 .build();
     }
+    
+    public static <T> PageResponse<T> empty() {
+        return PageResponse.<T>builder()
+                .content(java.util.Collections.emptyList())
+                .page(0)
+                .size(0)
+                .totalElements(0)
+                .totalPages(0)
+                .first(true)
+                .last(true)
+                .hasNext(false)
+                .hasPrevious(false)
+                .build();
+    }
 }
 
 

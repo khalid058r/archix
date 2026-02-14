@@ -10,7 +10,8 @@ import {
     ChevronLeft,
     ChevronRight
 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { selectCurrentUser, logout as logoutAction } from '../../store/slices/authSlice';
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -21,12 +22,13 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen, toggle, isMobileOpen, closeMobile }: SidebarProps) {
-    const { user, logout } = useAuth();
+    const user = useAppSelector(selectCurrentUser);
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleLogout = () => {
-        logout();
+        dispatch(logoutAction());
         navigate('/login');
     };
 

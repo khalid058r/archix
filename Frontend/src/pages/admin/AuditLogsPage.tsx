@@ -4,7 +4,7 @@ import { auditService } from '../../services';
 import type { AuditLog } from '../../types';
 import { FileSearch, User, Clock, Filter } from 'lucide-react';
 
-const AuditLogsPage = () => {
+export const AuditLogsPage = () => {
     const [logs, setLogs] = useState<AuditLog[]>([]);
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState('');

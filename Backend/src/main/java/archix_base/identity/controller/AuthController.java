@@ -153,4 +153,16 @@ public class AuthController {
         authService.changePassword(user.getId(), request);
         return ResponseEntity.ok(new MessageResponse("Password changed successfully"));
     }
+
+    /**
+     * POST /api/auth/complete-onboarding
+     * Complete the user onboarding process by customizing their organization
+     */
+    @PostMapping("/complete-onboarding")
+    public ResponseEntity<UserDto> completeOnboarding(
+            @AuthenticationPrincipal User user,
+            @Valid @RequestBody CompleteOnboardingRequest request) {
+        User updatedUser = authService.completeOnboarding(user.getId(), request);
+        return ResponseEntity.ok(UserMapper.toDto(updatedUser));
+    }
 }

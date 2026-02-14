@@ -2,7 +2,7 @@ import React from 'react';
 import { FileText, Image, FileCode, File, Download } from 'lucide-react';
 import { Button } from '../ui';
 import { documentService } from '../../services';
-import type { Document } from '../../types';
+import type { Document } from '../../types/document.types';
 import './Documents.css';
 
 interface DocumentPreviewProps {
@@ -30,10 +30,25 @@ export function DocumentPreview({ document }: DocumentPreviewProps) {
 
             setLoading(true);
             try {
-                const token = localStorage.getItem('token'); // Adjust key if needed (e.g. 'auth_token')
-                const response = await fetch(documentService.getPreviewUrl(document.id, document.organizationId), {
+                const token = localStorage.getItem('token');
+                // Get organization ID from storage
+                let organizationId: string | null = null;
+                const currentOrgStr = localStorage.getItem('currentOrganization');
+                if (currentOrgStr) {
+                    try {
+                        const org = JSON.parse(currentOrgStr);
+                        if (org?.id) organizationId = String(org.id);
+                    } catch (e) {
+                        console.error("Failed to parse currentOrganization", e);
+                    }
+                }
+
+                // Use API URL instead of hardcoded URL
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8081/api';
+                const response = await fetch(`${apiUrl}/documents/${document.id}/content`, {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`,
+                        ...(organizationId && { 'X-Organization-ID': organizationId })
                     }
                 });
 

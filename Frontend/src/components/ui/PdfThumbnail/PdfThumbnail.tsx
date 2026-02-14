@@ -44,8 +44,13 @@ export const PdfThumbnail = ({ fileUrl, width = 300, className }: PdfThumbnailPr
                     setBlobUrl(url);
                     setLoading(false);
                 }
-            } catch (err) {
-                console.error("Failed to load PDF thumbnail", err);
+            } catch (err: any) {
+                // Silently handle missing files (404/400) - show fallback icon instead
+                if (err?.response?.status === 404 || err?.response?.status === 400) {
+                    console.debug(`[PdfThumbnail] File not available for: ${fileUrl}`);
+                } else {
+                    console.warn("Failed to load PDF thumbnail", err?.message || err);
+                }
                 if (active) setError(true);
             }
         };

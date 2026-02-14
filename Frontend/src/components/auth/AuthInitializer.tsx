@@ -29,7 +29,6 @@ export const AuthInitializer = ({ children }: { children: React.ReactNode }) => 
     const [restorationComplete, setRestorationComplete] = useState(false);
 
     // Added: Auto-select organization if missing
-    // This fixes the 400 Bad Request (Missing Org ID) error after page reload
     const currentOrg = useAppSelector((state) => state.auth.currentOrganization);
     const organizations = useAppSelector((state) => state.auth.organizations);
 
@@ -47,7 +46,7 @@ export const AuthInitializer = ({ children }: { children: React.ReactNode }) => 
                     try {
                         const fetchedOrgs = await organizationApi.getAll();
                         dispatch(setOrganizations(fetchedOrgs));
-                        availableOrgs = fetchedOrgs; // Use the fresh list immediately
+                        availableOrgs = fetchedOrgs;
                     } catch (e) {
                         console.error("Failed to restore organizations", e);
                     }
@@ -63,14 +62,12 @@ export const AuthInitializer = ({ children }: { children: React.ReactNode }) => 
             }
         };
 
-        // Only trigger if we haven't completed restoration yet
         if (!restorationComplete) {
             restoreSession();
         }
     }, [token, currentOrg, organizations, dispatch, restorationComplete]);
 
-    // Block rendering until user AND organization are ready (or until restoration attempt is done)
-    // This prevents the infinite spinner: we only wait while we are actively trying to restore
+    // Block rendering until user AND organization are ready
     if ((isLoading && token && !user) || (token && !currentOrg && !restorationComplete)) {
         return (
             <div className="h-screen w-screen flex items-center justify-center bg-gray-50">

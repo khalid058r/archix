@@ -43,6 +43,14 @@ public abstract class Resource {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Visibility visibility = Visibility.PRIVATE;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true)
+    private archix_base.identity.entity.PermissionType publicAccessLevel;
+
     public String getPath() {
         if (parent == null)
             return "/" + name;

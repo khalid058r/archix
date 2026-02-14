@@ -10,14 +10,15 @@ import archix_base.organization.entity.Namespace;
 import archix_base.organization.entity.Organization;
 import archix_base.organization.repo.NamespaceRepo;
 import archix_base.organization.repo.OrganizationRepo;
-import jakarta.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 public class NamespaceService {
 
     private final PermissionRepo permissionRepository;
@@ -65,6 +66,7 @@ public class NamespaceService {
         return ns;
     }
 
+    @Transactional(readOnly = false)
     public Namespace create(Namespace namespace, Long createdById, Long parentId, Long organizationId) {
         if (organizationId == null)
             throw new IllegalArgumentException("Organization ID required");
@@ -96,7 +98,7 @@ public class NamespaceService {
         return namespaceRepository.save(namespace);
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public Namespace update(Long id, Namespace data, Long parentId, Long organizationId) {
         Namespace ns = getById(id, organizationId);
 
@@ -131,6 +133,7 @@ public class NamespaceService {
         return namespaceRepository.save(ns);
     }
 
+    @Transactional(readOnly = false)
     public void delete(Long id, Long organizationId) {
         Namespace ns = getById(id, organizationId); // Validates existence and Org
         permissionRepository.deleteByAppliesToId(id);
@@ -143,5 +146,67 @@ public class NamespaceService {
 
     public List<Namespace> advancedSearch(String name, Long parentId, Long createdById, Long organizationId) {
         return namespaceRepository.searchList(name, parentId, createdById, organizationId);
+    }
+
+    /**
+     * Get the full path from root to the given namespace.
+     * Returns a list from root to the current namespace (ascending order).
+     */
+    public List<Namespace> getPath(Long id, Long organizationId) {
+        Namespace ns = getById(id, organizationId);
+        List<Namespace> path = new java.util.ArrayList<>();
+        
+        Namespace current = ns;
+        while (current != null) {
+            path.add(0, current); // Add at beginning for root-first order
+            current = current.getParent();
+        }
+        
+        return path;
+    }
+
+    /**
+     * Move namespace to a new parent.
+     * Validates that the move doesn't create a circular reference.
+     */
+    @Transactional(readOnly = false)
+    public Namespace move(Long id, Long newParentId, Long organizationId) {
+        Namespace ns = getById(id, organizationId);
+        
+        // Cannot move to itself
+        if (newParentId != null && newParentId.equals(id)) {
+            throw new IllegalArgumentException("Cannot move namespace to itself");
+        }
+        
+        // Check for circular reference (newParent cannot be a descendant of ns)
+        if (newParentId != null) {
+            Namespace newParent = getById(newParentId, organizationId);
+            
+            // Walk up from newParent to check if ns is in the path
+            Namespace current = newParent;
+            while (current != null) {
+                if (current.getId().equals(id)) {
+                    throw new IllegalArgumentException("Cannot move namespace to one of its descendants");
+                }
+                current = current.getParent();
+            }
+            
+            // Validate uniqueness in new location
+            if (namespaceRepository.existsByNameAndParentIdAndOrganizationIdAndIdNot(
+                    ns.getName(), newParentId, organizationId, id)) {
+                throw new IllegalArgumentException("A namespace with this name already exists in the target folder");
+            }
+            
+            ns.setParent(newParent);
+        } else {
+            // Moving to root
+            if (namespaceRepository.existsByNameAndParentIdAndOrganizationIdAndIdNot(
+                    ns.getName(), null, organizationId, id)) {
+                throw new IllegalArgumentException("A namespace with this name already exists at root level");
+            }
+            ns.setParent(null);
+        }
+        
+        return namespaceRepository.save(ns);
     }
 }

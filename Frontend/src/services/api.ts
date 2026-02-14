@@ -3,7 +3,7 @@ import type { InternalAxiosRequestConfig } from 'axios';
 
 // Create axios instance with default config
 const api = axios.create({
-    baseURL: 'http://localhost:8081/api',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8081/api',
     headers: {
         'Content-Type': 'application/json',
     },
@@ -51,7 +51,7 @@ api.interceptors.response.use(
             if (refreshToken) {
                 try {
                     const response = await axios.post(
-                        'http://localhost:8081/api/auth/refresh',
+                        `${import.meta.env.VITE_API_URL || 'http://localhost:8081/api'}/auth/refresh`,
                         { token: refreshToken }
                     );
 

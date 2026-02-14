@@ -9,12 +9,13 @@ import {
     Input,
     useToast
 } from '../components/ui';
-import { useAuth } from '../context/AuthContext';
+import { useAppSelector } from '../store/hooks';
+import { selectCurrentUser } from '../store/slices/authSlice';
 import { authService } from '../services';
 import './Settings.css';
 
 export function Settings() {
-    const { user } = useAuth();
+    const user = useAppSelector(selectCurrentUser);
     const { toast } = useToast();
 
     const [activeTab, setActiveTab] = useState('profile');
